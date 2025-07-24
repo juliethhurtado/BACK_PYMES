@@ -1,0 +1,136 @@
+package co.edu.unicauca.sgph.persona.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.persona.domain.model.Persona;
+import co.edu.unicauca.sgph.persona.domain.model.TipoIdentificacion;
+import co.edu.unicauca.sgph.persona.infrastructure.input.DTORequest.PersonaInDTO;
+import co.edu.unicauca.sgph.persona.infrastructure.input.DTOResponse.PersonaOutDTO;
+import co.edu.unicauca.sgph.usuario.infrastructure.input.DTOResponse.TipoIdentificacionOutDTO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-07-08T12:25:09-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class PersonaRestMapperImpl implements PersonaRestMapper {
+
+    @Override
+    public TipoIdentificacionOutDTO toTipoIdentificacionOutDTO(TipoIdentificacion tipoIdentificacion) {
+        if ( tipoIdentificacion == null ) {
+            return null;
+        }
+
+        TipoIdentificacionOutDTO tipoIdentificacionOutDTO = new TipoIdentificacionOutDTO();
+
+        tipoIdentificacionOutDTO.setIdTipoIdentificacion( tipoIdentificacion.getIdTipoIdentificacion() );
+        tipoIdentificacionOutDTO.setCodigoTipoIdentificacion( tipoIdentificacion.getCodigoTipoIdentificacion() );
+        tipoIdentificacionOutDTO.setTipoIdentificacion( tipoIdentificacion.getTipoIdentificacion() );
+
+        return tipoIdentificacionOutDTO;
+    }
+
+    @Override
+    public List<TipoIdentificacionOutDTO> toLstTipoIdentificacionOutDTO(List<TipoIdentificacion> lstTipoIdentificacion) {
+        if ( lstTipoIdentificacion == null ) {
+            return null;
+        }
+
+        List<TipoIdentificacionOutDTO> list = new ArrayList<TipoIdentificacionOutDTO>( lstTipoIdentificacion.size() );
+        for ( TipoIdentificacion tipoIdentificacion : lstTipoIdentificacion ) {
+            list.add( toTipoIdentificacionOutDTO( tipoIdentificacion ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public PersonaOutDTO toPersonaOutDTO(Persona persona) {
+        if ( persona == null ) {
+            return null;
+        }
+
+        PersonaOutDTO personaOutDTO = new PersonaOutDTO();
+
+        personaOutDTO.setIdTipoIdentificacion( personaTipoIdentificacionIdTipoIdentificacion( persona ) );
+        personaOutDTO.setCodigoTipoIdentificacion( personaTipoIdentificacionCodigoTipoIdentificacion( persona ) );
+        personaOutDTO.setIdPersona( persona.getIdPersona() );
+        personaOutDTO.setNumeroIdentificacion( persona.getNumeroIdentificacion() );
+        personaOutDTO.setPrimerNombre( persona.getPrimerNombre() );
+        personaOutDTO.setSegundoNombre( persona.getSegundoNombre() );
+        personaOutDTO.setPrimerApellido( persona.getPrimerApellido() );
+        personaOutDTO.setSegundoApellido( persona.getSegundoApellido() );
+        personaOutDTO.setEmail( persona.getEmail() );
+        personaOutDTO.setSinReferencia( persona.getSinReferencia() );
+
+        return personaOutDTO;
+    }
+
+    @Override
+    public Persona toPersona(PersonaInDTO personaInDTO) {
+        if ( personaInDTO == null ) {
+            return null;
+        }
+
+        Persona persona = new Persona();
+
+        persona.setIdPersona( personaInDTO.getIdPersona() );
+        persona.setNumeroIdentificacion( personaInDTO.getNumeroIdentificacion() );
+        persona.setPrimerNombre( personaInDTO.getPrimerNombre() );
+        persona.setSegundoNombre( personaInDTO.getSegundoNombre() );
+        persona.setPrimerApellido( personaInDTO.getPrimerApellido() );
+        persona.setSegundoApellido( personaInDTO.getSegundoApellido() );
+        persona.setEmail( personaInDTO.getEmail() );
+
+        persona.setTipoIdentificacion( new TipoIdentificacion(personaInDTO.getIdTipoIdentificacion()) );
+
+        return persona;
+    }
+
+    @Override
+    public List<PersonaOutDTO> toLstPersonaOutDTO(List<Persona> lstPersona) {
+        if ( lstPersona == null ) {
+            return null;
+        }
+
+        List<PersonaOutDTO> list = new ArrayList<PersonaOutDTO>( lstPersona.size() );
+        for ( Persona persona : lstPersona ) {
+            list.add( toPersonaOutDTO( persona ) );
+        }
+
+        return list;
+    }
+
+    private Long personaTipoIdentificacionIdTipoIdentificacion(Persona persona) {
+        if ( persona == null ) {
+            return null;
+        }
+        TipoIdentificacion tipoIdentificacion = persona.getTipoIdentificacion();
+        if ( tipoIdentificacion == null ) {
+            return null;
+        }
+        Long idTipoIdentificacion = tipoIdentificacion.getIdTipoIdentificacion();
+        if ( idTipoIdentificacion == null ) {
+            return null;
+        }
+        return idTipoIdentificacion;
+    }
+
+    private String personaTipoIdentificacionCodigoTipoIdentificacion(Persona persona) {
+        if ( persona == null ) {
+            return null;
+        }
+        TipoIdentificacion tipoIdentificacion = persona.getTipoIdentificacion();
+        if ( tipoIdentificacion == null ) {
+            return null;
+        }
+        String codigoTipoIdentificacion = tipoIdentificacion.getCodigoTipoIdentificacion();
+        if ( codigoTipoIdentificacion == null ) {
+            return null;
+        }
+        return codigoTipoIdentificacion;
+    }
+}

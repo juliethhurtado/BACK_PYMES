@@ -1,0 +1,40 @@
+package co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.mapper;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import co.edu.unicauca.sgph.reservatemporal.domain.model.ReservaTemporal;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.ReservaTemporalEntity;
+
+@Configuration
+public class ReservaTemporalPersistenceMapper {
+	
+	@Bean
+    public ModelMapper modelMapper() {
+		ModelMapper modelMapper = new ModelMapper();
+	    modelMapper.getConfiguration()
+	               .setFieldMatchingEnabled(false)   // <--- DESACTIVA coincidencia automática por nombre de campos
+	               .setSkipNullEnabled(true)
+	               .setFieldAccessLevel(AccessLevel.PRIVATE);
+
+	    modelMapper.typeMap(ReservaTemporalEntity.class, ReservaTemporal.class)
+	               .addMappings(mapper -> {
+	                   // Mapeos explícitos
+	                   mapper.map(ReservaTemporalEntity::getNumeroIdentificacion, 
+	                              ReservaTemporal::setIdentificacion);
+
+	                   mapper.map(ReservaTemporalEntity::getTipoIdentificacion, 
+	                              ReservaTemporal::setTipoIdentificacion);
+
+	                   mapper.map(src -> src.getHoraInicio().toString(), 
+	                              ReservaTemporal::setHoraInicio);
+
+	                   mapper.map(src -> src.getHoraFin().toString(), 
+	                              ReservaTemporal::setHoraFin);
+	               });
+
+	    return modelMapper;
+    }
+}

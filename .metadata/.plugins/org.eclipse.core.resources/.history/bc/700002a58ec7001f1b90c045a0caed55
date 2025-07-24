@@ -1,0 +1,116 @@
+package co.edu.unicauca.sgph.reservatemporal.domain.model;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public class ReservaTemporal {
+    private Long idReserva;
+    private Long idEspacioFisico; 
+    private String usuario;
+    private String tipoIdentificacion; 
+    private String numeroIdentificacion; 
+    private String correo; 
+    private String tipoSolicitante; 
+    private LocalTime horaInicio; 
+    private LocalTime horaFin; 
+    private LocalDate fechaReserva; 
+    private String estado; 
+    private String observaciones; 
+
+    // Getters y Setters
+    public Long getIdReserva() {
+        return idReserva;
+    }
+
+    public void setIdReserva(Long idReserva) {
+        this.idReserva = idReserva;
+    }
+
+    public Long getIdEspacioFisico() {
+        return idEspacioFisico;
+    }
+
+    public void setIdEspacioFisico(Long idEspacioFisico) {
+        this.idEspacioFisico = idEspacioFisico;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getTipoIdentificacion() {
+        return tipoIdentificacion;
+    }
+
+    public void setTipoIdentificacion(String tipoIdentificacion) {
+        this.tipoIdentificacion = tipoIdentificacion;
+    }
+
+    public String getNumeroIdentificacion() {
+        return numeroIdentificacion;
+    }
+
+    public void setNumeroIdentificacion(String numeroIdentificacion) {
+        this.numeroIdentificacion = numeroIdentificacion;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTipoSolicitante() {
+        return tipoSolicitante;
+    }
+
+    public void setTipoSolicitante(String tipoSolicitante) {
+        this.tipoSolicitante = tipoSolicitante;
+    }
+
+    public LocalTime getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public LocalTime getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(LocalTime horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    public LocalDate getFechaReserva() {
+        return fechaReserva;
+    }
+
+    public void setFechaReserva(LocalDate fechaReserva) {
+        this.fechaReserva = fechaReserva;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+}

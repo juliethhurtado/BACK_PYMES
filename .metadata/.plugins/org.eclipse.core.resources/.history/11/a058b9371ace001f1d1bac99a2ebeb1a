@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  ssl:
+    key-alias: spring-https
+    key-store: classpath:sgph-https.jks
+    key-store-type: JKS
+    key-password: ${KEY_PASSWORD}
+    key-store-password: ${KEY_STORE_PASSWORD}
+spring:
+  application:
+    name: sgph
+  datasource:
+    url: jdbc:mysql://localhost/sgph?useSSL=false&serverTimeZone=GMT&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialec.MySQL8Dialect
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+  messages:
+      basename: messages
+
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: consolaSGPH.log
+  
+

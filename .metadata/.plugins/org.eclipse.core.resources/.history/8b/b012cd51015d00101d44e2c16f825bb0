@@ -1,0 +1,297 @@
+package co.edu.unicauca.sgph.asignatura.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.agrupador.domain.model.AgrupadorEspacioFisico;
+import co.edu.unicauca.sgph.agrupador.infrastructure.output.persistence.entity.AgrupadorEspacioFisicoEntity;
+import co.edu.unicauca.sgph.asignatura.domain.model.Asignatura;
+import co.edu.unicauca.sgph.asignatura.infrastructure.input.DTORequest.AsignaturaInDTO;
+import co.edu.unicauca.sgph.asignatura.infrastructure.input.DTOResponse.AgrupadorEspacioFisicoDTO;
+import co.edu.unicauca.sgph.asignatura.infrastructure.input.DTOResponse.AsignaturaOutDTO;
+import co.edu.unicauca.sgph.asignatura.infrastructure.output.persistence.entity.AsignaturaEntity;
+import co.edu.unicauca.sgph.facultad.domain.model.Facultad;
+import co.edu.unicauca.sgph.facultad.infrastructure.output.persistence.entity.FacultadEntity;
+import co.edu.unicauca.sgph.programa.domain.model.Programa;
+import co.edu.unicauca.sgph.programa.infrastructure.input.mapper.ProgramaRestMapper;
+import co.edu.unicauca.sgph.programa.infrastructure.output.persistence.entity.ProgramaEntity;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-07-09T11:00:31-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class AsignaturaRestMapperImpl implements AsignaturaRestMapper {
+
+    @Autowired
+    private ProgramaRestMapper programaRestMapper;
+
+    @Override
+    public AsignaturaOutDTO toAsignaturaOutDTO(Asignatura asignatura) {
+        if ( asignatura == null ) {
+            return null;
+        }
+
+        AsignaturaOutDTO asignaturaOutDTO = new AsignaturaOutDTO();
+
+        asignaturaOutDTO.setIdPrograma( asignaturaProgramaIdPrograma( asignatura ) );
+        asignaturaOutDTO.setLstIdAgrupadorEspacioFisico( toLstIdAgrupadorEspacioFisico( asignatura.getAgrupadores() ) );
+        asignaturaOutDTO.setIdAsignatura( asignatura.getIdAsignatura() );
+        asignaturaOutDTO.setNombre( asignatura.getNombre() );
+        asignaturaOutDTO.setCodigoAsignatura( asignatura.getCodigoAsignatura() );
+        asignaturaOutDTO.setOID( asignatura.getOID() );
+        asignaturaOutDTO.setSemestre( asignatura.getSemestre() );
+        asignaturaOutDTO.setPensum( asignatura.getPensum() );
+        asignaturaOutDTO.setHorasSemana( asignatura.getHorasSemana() );
+        asignaturaOutDTO.setAgrupadores( agrupadorEspacioFisicoListToAgrupadorEspacioFisicoDTOList( asignatura.getAgrupadores() ) );
+        asignaturaOutDTO.setAplicaEspacioSecundario( asignatura.getAplicaEspacioSecundario() );
+
+        return asignaturaOutDTO;
+    }
+
+    @Override
+    public Asignatura toAsignatura(AsignaturaInDTO asignaturaInDTO) {
+        if ( asignaturaInDTO == null ) {
+            return null;
+        }
+
+        Asignatura asignatura = new Asignatura();
+
+        asignatura.setAgrupadores( toAgrupadoresDomain( asignaturaInDTO.getLstIdAgrupadorEspacioFisico() ) );
+        asignatura.setIdAsignatura( asignaturaInDTO.getIdAsignatura() );
+        asignatura.setNombre( asignaturaInDTO.getNombre() );
+        asignatura.setCodigoAsignatura( asignaturaInDTO.getCodigoAsignatura() );
+        asignatura.setOID( asignaturaInDTO.getOID() );
+        asignatura.setSemestre( asignaturaInDTO.getSemestre() );
+        asignatura.setPensum( asignaturaInDTO.getPensum() );
+        asignatura.setHorasSemana( asignaturaInDTO.getHorasSemana() );
+        asignatura.setAplicaEspacioSecundario( asignaturaInDTO.getAplicaEspacioSecundario() );
+
+        asignatura.setPrograma( new Programa(asignaturaInDTO.getIdPrograma()) );
+
+        return asignatura;
+    }
+
+    @Override
+    public List<AsignaturaOutDTO> toLstAsignaturaOutDTO(List<Asignatura> lstAsignatura) {
+        if ( lstAsignatura == null ) {
+            return null;
+        }
+
+        List<AsignaturaOutDTO> list = new ArrayList<AsignaturaOutDTO>( lstAsignatura.size() );
+        for ( Asignatura asignatura : lstAsignatura ) {
+            list.add( toAsignaturaOutDTO( asignatura ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public AsignaturaEntity toAsignaturaEntity(Asignatura asignatura) {
+        if ( asignatura == null ) {
+            return null;
+        }
+
+        AsignaturaEntity asignaturaEntity = new AsignaturaEntity();
+
+        asignaturaEntity.setPrograma( programaToProgramaEntity( asignatura.getPrograma() ) );
+        asignaturaEntity.setIdAsignatura( asignatura.getIdAsignatura() );
+        asignaturaEntity.setNombre( asignatura.getNombre() );
+        asignaturaEntity.setCodigoAsignatura( asignatura.getCodigoAsignatura() );
+        asignaturaEntity.setSemestre( asignatura.getSemestre() );
+        asignaturaEntity.setPensum( asignatura.getPensum() );
+        asignaturaEntity.setHorasSemana( asignatura.getHorasSemana() );
+        asignaturaEntity.setAgrupadores( toAgrupadorEspacioFisicoEntityList( asignatura.getAgrupadores() ) );
+        asignaturaEntity.setAplicaEspacioSecundario( asignatura.getAplicaEspacioSecundario() );
+
+        return asignaturaEntity;
+    }
+
+    @Override
+    public Asignatura toAsignaturaFromEntity(AsignaturaEntity asignaturaEntity) {
+        if ( asignaturaEntity == null ) {
+            return null;
+        }
+
+        Asignatura asignatura = new Asignatura();
+
+        asignatura.setPrograma( programaRestMapper.toPrograma( asignaturaEntity.getPrograma() ) );
+        asignatura.setIdAsignatura( asignaturaEntity.getIdAsignatura() );
+        asignatura.setNombre( asignaturaEntity.getNombre() );
+        asignatura.setCodigoAsignatura( asignaturaEntity.getCodigoAsignatura() );
+        asignatura.setSemestre( asignaturaEntity.getSemestre() );
+        asignatura.setPensum( asignaturaEntity.getPensum() );
+        asignatura.setHorasSemana( asignaturaEntity.getHorasSemana() );
+        asignatura.setAgrupadores( toAgrupadorEspacioFisicoList( asignaturaEntity.getAgrupadores() ) );
+        asignatura.setAplicaEspacioSecundario( asignaturaEntity.getAplicaEspacioSecundario() );
+
+        return asignatura;
+    }
+
+    @Override
+    public void updateEntityFromAsignatura(Asignatura asignatura, AsignaturaEntity asignaturaEntity) {
+        if ( asignatura == null ) {
+            return;
+        }
+
+        asignaturaEntity.setNombre( asignatura.getNombre() );
+        asignaturaEntity.setCodigoAsignatura( asignatura.getCodigoAsignatura() );
+        asignaturaEntity.setSemestre( asignatura.getSemestre() );
+        asignaturaEntity.setPensum( asignatura.getPensum() );
+        asignaturaEntity.setHorasSemana( asignatura.getHorasSemana() );
+        asignaturaEntity.setPrograma( programaRestMapper.toProgramaEntity( asignatura.getPrograma() ) );
+        if ( asignaturaEntity.getAgrupadores() != null ) {
+            List<AgrupadorEspacioFisicoEntity> list = toAgrupadorEspacioFisicoEntityList( asignatura.getAgrupadores() );
+            if ( list != null ) {
+                asignaturaEntity.getAgrupadores().clear();
+                asignaturaEntity.getAgrupadores().addAll( list );
+            }
+            else {
+                asignaturaEntity.setAgrupadores( null );
+            }
+        }
+        else {
+            List<AgrupadorEspacioFisicoEntity> list = toAgrupadorEspacioFisicoEntityList( asignatura.getAgrupadores() );
+            if ( list != null ) {
+                asignaturaEntity.setAgrupadores( list );
+            }
+        }
+        asignaturaEntity.setAplicaEspacioSecundario( asignatura.getAplicaEspacioSecundario() );
+    }
+
+    @Override
+    public AgrupadorEspacioFisicoEntity toAgrupadorEspacioFisicoEntity(AgrupadorEspacioFisico agrupador) {
+        if ( agrupador == null ) {
+            return null;
+        }
+
+        AgrupadorEspacioFisicoEntity agrupadorEspacioFisicoEntity = new AgrupadorEspacioFisicoEntity();
+
+        agrupadorEspacioFisicoEntity.setIdAgrupadorEspacioFisico( agrupador.getIdAgrupadorEspacioFisico() );
+        agrupadorEspacioFisicoEntity.setNombre( agrupador.getNombre() );
+        agrupadorEspacioFisicoEntity.setObservacion( agrupador.getObservacion() );
+        agrupadorEspacioFisicoEntity.setFacultad( facultadToFacultadEntity( agrupador.getFacultad() ) );
+
+        return agrupadorEspacioFisicoEntity;
+    }
+
+    @Override
+    public AgrupadorEspacioFisico toAgrupadorEspacioFisico(AgrupadorEspacioFisicoEntity agrupadorEntity) {
+        if ( agrupadorEntity == null ) {
+            return null;
+        }
+
+        AgrupadorEspacioFisico agrupadorEspacioFisico = new AgrupadorEspacioFisico();
+
+        agrupadorEspacioFisico.setIdAgrupadorEspacioFisico( agrupadorEntity.getIdAgrupadorEspacioFisico() );
+        agrupadorEspacioFisico.setNombre( agrupadorEntity.getNombre() );
+        agrupadorEspacioFisico.setObservacion( agrupadorEntity.getObservacion() );
+        agrupadorEspacioFisico.setFacultad( facultadEntityToFacultad( agrupadorEntity.getFacultad() ) );
+
+        return agrupadorEspacioFisico;
+    }
+
+    private Long asignaturaProgramaIdPrograma(Asignatura asignatura) {
+        if ( asignatura == null ) {
+            return null;
+        }
+        Programa programa = asignatura.getPrograma();
+        if ( programa == null ) {
+            return null;
+        }
+        Long idPrograma = programa.getIdPrograma();
+        if ( idPrograma == null ) {
+            return null;
+        }
+        return idPrograma;
+    }
+
+    protected AgrupadorEspacioFisicoDTO agrupadorEspacioFisicoToAgrupadorEspacioFisicoDTO(AgrupadorEspacioFisico agrupadorEspacioFisico) {
+        if ( agrupadorEspacioFisico == null ) {
+            return null;
+        }
+
+        AgrupadorEspacioFisicoDTO agrupadorEspacioFisicoDTO = new AgrupadorEspacioFisicoDTO();
+
+        agrupadorEspacioFisicoDTO.setIdAgrupadorEspacioFisico( agrupadorEspacioFisico.getIdAgrupadorEspacioFisico() );
+        agrupadorEspacioFisicoDTO.setNombre( agrupadorEspacioFisico.getNombre() );
+
+        return agrupadorEspacioFisicoDTO;
+    }
+
+    protected List<AgrupadorEspacioFisicoDTO> agrupadorEspacioFisicoListToAgrupadorEspacioFisicoDTOList(List<AgrupadorEspacioFisico> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<AgrupadorEspacioFisicoDTO> list1 = new ArrayList<AgrupadorEspacioFisicoDTO>( list.size() );
+        for ( AgrupadorEspacioFisico agrupadorEspacioFisico : list ) {
+            list1.add( agrupadorEspacioFisicoToAgrupadorEspacioFisicoDTO( agrupadorEspacioFisico ) );
+        }
+
+        return list1;
+    }
+
+    protected FacultadEntity facultadToFacultadEntity(Facultad facultad) {
+        if ( facultad == null ) {
+            return null;
+        }
+
+        FacultadEntity facultadEntity = new FacultadEntity();
+
+        facultadEntity.setIdFacultad( facultad.getIdFacultad() );
+        facultadEntity.setNombre( facultad.getNombre() );
+        facultadEntity.setAbreviatura( facultad.getAbreviatura() );
+
+        return facultadEntity;
+    }
+
+    protected List<AsignaturaEntity> asignaturaListToAsignaturaEntityList(List<Asignatura> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<AsignaturaEntity> list1 = new ArrayList<AsignaturaEntity>( list.size() );
+        for ( Asignatura asignatura : list ) {
+            list1.add( toAsignaturaEntity( asignatura ) );
+        }
+
+        return list1;
+    }
+
+    protected ProgramaEntity programaToProgramaEntity(Programa programa) {
+        if ( programa == null ) {
+            return null;
+        }
+
+        ProgramaEntity programaEntity = new ProgramaEntity();
+
+        programaEntity.setIdPrograma( programa.getIdPrograma() );
+        programaEntity.setNombre( programa.getNombre() );
+        programaEntity.setAbreviatura( programa.getAbreviatura() );
+        programaEntity.setFacultad( facultadToFacultadEntity( programa.getFacultad() ) );
+        programaEntity.setAsignaturas( asignaturaListToAsignaturaEntityList( programa.getAsignaturas() ) );
+        if ( programa.getOid() != null ) {
+            programaEntity.setOid( String.valueOf( programa.getOid() ) );
+        }
+
+        return programaEntity;
+    }
+
+    protected Facultad facultadEntityToFacultad(FacultadEntity facultadEntity) {
+        if ( facultadEntity == null ) {
+            return null;
+        }
+
+        Facultad facultad = new Facultad();
+
+        facultad.setIdFacultad( facultadEntity.getIdFacultad() );
+        facultad.setNombre( facultadEntity.getNombre() );
+        facultad.setAbreviatura( facultadEntity.getAbreviatura() );
+
+        return facultad;
+    }
+}

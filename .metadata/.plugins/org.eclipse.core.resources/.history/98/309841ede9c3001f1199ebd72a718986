@@ -1,0 +1,48 @@
+package co.edu.unicauca.sgph.espaciofisico.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.espaciofisico.domain.model.Ubicacion;
+import co.edu.unicauca.sgph.espaciofisico.infrastructure.input.DTOResponse.UbicacionOutDTO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2024-12-26T16:49:01-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class UbicacionRestMapperImpl implements UbicacionRestMapper {
+
+    @Override
+    public UbicacionOutDTO toUbicacionOutDTO(Ubicacion ubicacion) {
+        if ( ubicacion == null ) {
+            return null;
+        }
+
+        UbicacionOutDTO ubicacionOutDTO = new UbicacionOutDTO();
+
+        ubicacionOutDTO.setIdUbicacion( ubicacion.getIdUbicacion() );
+        ubicacionOutDTO.setNombre( ubicacion.getNombre() );
+        ubicacionOutDTO.setDescripcion( ubicacion.getDescripcion() );
+
+        ubicacionOutDTO.setIdMunicipio( ubicacion.getMunicipio().getIdMunicipio() );
+
+        return ubicacionOutDTO;
+    }
+
+    @Override
+    public List<UbicacionOutDTO> toLstUbicacionOutDTO(List<Ubicacion> lstUbicacion) {
+        if ( lstUbicacion == null ) {
+            return null;
+        }
+
+        List<UbicacionOutDTO> list = new ArrayList<UbicacionOutDTO>( lstUbicacion.size() );
+        for ( Ubicacion ubicacion : lstUbicacion ) {
+            list.add( toUbicacionOutDTO( ubicacion ) );
+        }
+
+        return list;
+    }
+}

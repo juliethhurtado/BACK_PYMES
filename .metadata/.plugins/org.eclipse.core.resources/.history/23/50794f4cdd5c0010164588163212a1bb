@@ -1,0 +1,83 @@
+package co.edu.unicauca.sgph.programa.infrastructure.output.persistence.mapper;
+
+import co.edu.unicauca.sgph.facultad.domain.model.Facultad;
+import co.edu.unicauca.sgph.facultad.infrastructure.output.persistence.entity.FacultadEntity;
+import co.edu.unicauca.sgph.programa.domain.model.Programa;
+import co.edu.unicauca.sgph.programa.infrastructure.output.persistence.entity.ProgramaEntity;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-07-08T12:25:09-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class ProgramaMapperImpl implements ProgramaMapper {
+
+    @Override
+    public ProgramaEntity toEntity(Programa programa) {
+        if ( programa == null ) {
+            return null;
+        }
+
+        ProgramaEntity programaEntity = new ProgramaEntity();
+
+        programaEntity.setIdPrograma( programa.getIdPrograma() );
+        programaEntity.setNombre( programa.getNombre() );
+        programaEntity.setAbreviatura( programa.getAbreviatura() );
+        programaEntity.setFacultad( facultadToFacultadEntity( programa.getFacultad() ) );
+        if ( programa.getOid() != null ) {
+            programaEntity.setOid( String.valueOf( programa.getOid() ) );
+        }
+
+        return programaEntity;
+    }
+
+    @Override
+    public Programa toDomain(ProgramaEntity programaEntity) {
+        if ( programaEntity == null ) {
+            return null;
+        }
+
+        Programa programa = new Programa();
+
+        programa.setIdPrograma( programaEntity.getIdPrograma() );
+        programa.setNombre( programaEntity.getNombre() );
+        programa.setAbreviatura( programaEntity.getAbreviatura() );
+        programa.setFacultad( facultadEntityToFacultad( programaEntity.getFacultad() ) );
+        if ( programaEntity.getOid() != null ) {
+            programa.setOid( Long.parseLong( programaEntity.getOid() ) );
+        }
+
+        return programa;
+    }
+
+    protected FacultadEntity facultadToFacultadEntity(Facultad facultad) {
+        if ( facultad == null ) {
+            return null;
+        }
+
+        FacultadEntity facultadEntity = new FacultadEntity();
+
+        facultadEntity.setIdFacultad( facultad.getIdFacultad() );
+        facultadEntity.setNombre( facultad.getNombre() );
+        facultadEntity.setAbreviatura( facultad.getAbreviatura() );
+
+        return facultadEntity;
+    }
+
+    protected Facultad facultadEntityToFacultad(FacultadEntity facultadEntity) {
+        if ( facultadEntity == null ) {
+            return null;
+        }
+
+        Facultad facultad = new Facultad();
+
+        facultad.setIdFacultad( facultadEntity.getIdFacultad() );
+        facultad.setNombre( facultadEntity.getNombre() );
+        facultad.setAbreviatura( facultadEntity.getAbreviatura() );
+
+        return facultad;
+    }
+}

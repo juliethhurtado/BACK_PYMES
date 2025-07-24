@@ -1,0 +1,122 @@
+package co.edu.unicauca.sgph.asignatura.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.agrupador.domain.model.AgrupadorEspacioFisico;
+import co.edu.unicauca.sgph.asignatura.domain.model.Asignatura;
+import co.edu.unicauca.sgph.asignatura.infrastructure.input.DTORequest.AsignaturaInDTO;
+import co.edu.unicauca.sgph.asignatura.infrastructure.input.DTOResponse.AgrupadorEspacioFisicoDTO;
+import co.edu.unicauca.sgph.asignatura.infrastructure.input.DTOResponse.AsignaturaOutDTO;
+import co.edu.unicauca.sgph.programa.domain.model.Programa;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-01-08T19:00:27-0500",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.41.0.v20241217-1506, environment: Java 17.0.13 (Eclipse Adoptium)"
+)
+@Component
+public class AsignaturaRestMapperImpl implements AsignaturaRestMapper {
+
+    @Override
+    public AsignaturaOutDTO toAsignaturaOutDTO(Asignatura asignatura) {
+        if ( asignatura == null ) {
+            return null;
+        }
+
+        AsignaturaOutDTO asignaturaOutDTO = new AsignaturaOutDTO();
+
+        asignaturaOutDTO.setIdPrograma( asignaturaProgramaIdPrograma( asignatura ) );
+        asignaturaOutDTO.setLstIdAgrupadorEspacioFisico( toLstIdAgrupadorEspacioFisico( asignatura.getAgrupadores() ) );
+        asignaturaOutDTO.setIdAsignatura( asignatura.getIdAsignatura() );
+        asignaturaOutDTO.setNombre( asignatura.getNombre() );
+        asignaturaOutDTO.setCodigoAsignatura( asignatura.getCodigoAsignatura() );
+        asignaturaOutDTO.setOID( asignatura.getOID() );
+        asignaturaOutDTO.setSemestre( asignatura.getSemestre() );
+        asignaturaOutDTO.setPensum( asignatura.getPensum() );
+        asignaturaOutDTO.setHorasSemana( asignatura.getHorasSemana() );
+        asignaturaOutDTO.setAgrupadores( agrupadorEspacioFisicoListToAgrupadorEspacioFisicoDTOList( asignatura.getAgrupadores() ) );
+        asignaturaOutDTO.setAplicaEspacioSecundario( asignatura.getAplicaEspacioSecundario() );
+
+        return asignaturaOutDTO;
+    }
+
+    @Override
+    public Asignatura toAsignatura(AsignaturaInDTO asignaturaInDTO) {
+        if ( asignaturaInDTO == null ) {
+            return null;
+        }
+
+        Asignatura asignatura = new Asignatura();
+
+        asignatura.setAgrupadores( toAgrupadorEspacioFisico( AsignaturaRestMapper.handleNullList( asignaturaInDTO.getLstIdAgrupadorEspacioFisico() ) ) );
+        asignatura.setIdAsignatura( asignaturaInDTO.getIdAsignatura() );
+        asignatura.setNombre( asignaturaInDTO.getNombre() );
+        asignatura.setCodigoAsignatura( asignaturaInDTO.getCodigoAsignatura() );
+        asignatura.setOID( asignaturaInDTO.getOID() );
+        asignatura.setSemestre( asignaturaInDTO.getSemestre() );
+        asignatura.setPensum( asignaturaInDTO.getPensum() );
+        asignatura.setHorasSemana( asignaturaInDTO.getHorasSemana() );
+        asignatura.setAplicaEspacioSecundario( asignaturaInDTO.getAplicaEspacioSecundario() );
+
+        asignatura.setPrograma( new Programa(asignaturaInDTO.getIdPrograma()) );
+
+        return asignatura;
+    }
+
+    @Override
+    public List<AsignaturaOutDTO> toLstAsignaturaOutDTO(List<Asignatura> lstAsignatura) {
+        if ( lstAsignatura == null ) {
+            return null;
+        }
+
+        List<AsignaturaOutDTO> list = new ArrayList<AsignaturaOutDTO>( lstAsignatura.size() );
+        for ( Asignatura asignatura : lstAsignatura ) {
+            list.add( toAsignaturaOutDTO( asignatura ) );
+        }
+
+        return list;
+    }
+
+    private Long asignaturaProgramaIdPrograma(Asignatura asignatura) {
+        if ( asignatura == null ) {
+            return null;
+        }
+        Programa programa = asignatura.getPrograma();
+        if ( programa == null ) {
+            return null;
+        }
+        Long idPrograma = programa.getIdPrograma();
+        if ( idPrograma == null ) {
+            return null;
+        }
+        return idPrograma;
+    }
+
+    protected AgrupadorEspacioFisicoDTO agrupadorEspacioFisicoToAgrupadorEspacioFisicoDTO(AgrupadorEspacioFisico agrupadorEspacioFisico) {
+        if ( agrupadorEspacioFisico == null ) {
+            return null;
+        }
+
+        AgrupadorEspacioFisicoDTO agrupadorEspacioFisicoDTO = new AgrupadorEspacioFisicoDTO();
+
+        agrupadorEspacioFisicoDTO.setIdAgrupadorEspacioFisico( agrupadorEspacioFisico.getIdAgrupadorEspacioFisico() );
+        agrupadorEspacioFisicoDTO.setNombre( agrupadorEspacioFisico.getNombre() );
+
+        return agrupadorEspacioFisicoDTO;
+    }
+
+    protected List<AgrupadorEspacioFisicoDTO> agrupadorEspacioFisicoListToAgrupadorEspacioFisicoDTOList(List<AgrupadorEspacioFisico> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<AgrupadorEspacioFisicoDTO> list1 = new ArrayList<AgrupadorEspacioFisicoDTO>( list.size() );
+        for ( AgrupadorEspacioFisico agrupadorEspacioFisico : list ) {
+            list1.add( agrupadorEspacioFisicoToAgrupadorEspacioFisicoDTO( agrupadorEspacioFisico ) );
+        }
+
+        return list1;
+    }
+}

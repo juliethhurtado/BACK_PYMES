@@ -1,0 +1,22 @@
+package co.edu.unicauca.sgph.reservatemporal.application.output;
+
+import java.awt.print.Pageable;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+
+import co.edu.unicauca.sgph.horario.infrastructure.input.DTORequest.FiltroFranjaHorariaDisponibleCursoDTO;
+import co.edu.unicauca.sgph.horario.infrastructure.input.DTOResponse.FranjaLibreOutDTO;
+import co.edu.unicauca.sgph.reservatemporal.domain.model.ReservaTemporal;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.input.DTORequest.ReservaTemporalInDTO;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.input.DTOResponse.ReservaTemporalOutDTO;
+
+public interface GestionarReservaTemporalGatewayIntPort {
+	public ReservaTemporalOutDTO guardarReserva(ReservaTemporalInDTO inDTO);
+
+	 Page<ReservaTemporal> consultarReservas(String tipoIdentificacion, String identificacion, Pageable pageable);
+
+    ReservaTemporal consultarReservaPorId(Long id);
+    
+    public Page<FranjaLibreOutDTO> consultarFranjasLibres(FiltroFranjaHorariaDisponibleCursoDTO filtro);
+}

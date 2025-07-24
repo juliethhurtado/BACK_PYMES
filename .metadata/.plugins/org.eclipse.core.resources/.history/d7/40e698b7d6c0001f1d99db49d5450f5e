@@ -1,0 +1,115 @@
+package co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.gateway;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.stereotype.Service;
+
+import co.edu.unicauca.sgph.asignatura.infrastructure.output.persistence.entity.AsignaturaEntity;
+import co.edu.unicauca.sgph.asignatura.infrastructure.output.persistence.repository.AsignaturaRepositoryInt;
+import co.edu.unicauca.sgph.common.enums.DiaSemanaEnum;
+import co.edu.unicauca.sgph.curso.infrastructure.output.persistence.entity.CursoEntity;
+import co.edu.unicauca.sgph.curso.infrastructure.output.persistence.repository.CursoRepositoryInt;
+import co.edu.unicauca.sgph.espaciofisico.infrastructure.output.persistence.entity.EspacioFisicoEntity;
+import co.edu.unicauca.sgph.espaciofisico.infrastructure.output.persistence.repository.EspacioFisicoRepositoryInt;
+import co.edu.unicauca.sgph.horario.infrastructure.output.persistence.entity.HorarioEntity;
+import co.edu.unicauca.sgph.horario.infrastructure.output.persistence.repository.HorarioRepositoryInt;
+import co.edu.unicauca.sgph.reservatemporal.application.output.GestionarReservaTemporalGatewayIntPort;
+import co.edu.unicauca.sgph.reservatemporal.domain.model.ReservaTemporal;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.input.DTORequest.ReservaTemporalInDTO;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.input.DTOResponse.ReservaTemporalOutDTO;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.EstadoReservaEntity;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.EstadoReservaEnum;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.LogReservasEntity;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.ReservaTemporalEntity;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.repository.EstadoReservaRepository;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.repository.LogReservasRepository;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.repository.NotificacionesReservaRepository;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.repository.ReservaTemporalRepositoryInt;
+
+@Service
+public class GestionarReservaTemporalGatewayImplAdapter implements GestionarReservaTemporalGatewayIntPort{
+
+	private final ReservaTemporalRepositoryInt reservaTemporalRepositoryInt;
+    private final ModelMapper mapper;
+    private final CursoRepositoryInt cursoRepositoryInt;
+    private final HorarioRepositoryInt horarioRepositoryInt;
+    private final EspacioFisicoRepositoryInt espacioFisicoRepositoryInt;
+    private final LogReservasRepository logReservasRepository;
+    private final NotificacionesReservaRepository notificacionesReservaRepository;
+	private EstadoReservaEntity estadoReserva;
+
+    public GestionarReservaTemporalGatewayImplAdapter(ReservaTemporalRepositoryInt repository, ModelMapper mapper,
+    		CursoRepositoryInt cursoRepositoryInt, HorarioRepositoryInt horarioRepositoryInt, EspacioFisicoRepositoryInt espacioFisicoRepositoryInt,
+    		LogReservasRepository logReservasRepository, NotificacionesReservaRepository notificacionesReservaRepository) {
+        this.reservaTemporalRepositoryInt = repository;
+        this.mapper = mapper;
+        this.cursoRepositoryInt = cursoRepositoryInt;
+        this.horarioRepositoryInt = horarioRepositoryInt;
+        this.espacioFisicoRepositoryInt = espacioFisicoRepositoryInt;  
+        this.logReservasRepository = logReservasRepository;
+        this.notificacionesReservaRepository = notificacionesReservaRepository;
+    }
+    
+	@Override
+	public List<ReservaTemporal> consultarReservas() {
+		return mapper.map(reservaTemporalRepositoryInt.findAll(), new TypeToken<List<ReservaTemporal>>() {}.getType());
+	}
+
+	@Override
+	public ReservaTemporal consultarReservaPorId(Long id) {
+		return reservaTemporalRepositoryInt.findById(id)
+                .map(entity -> mapper.map(entity, ReservaTemporal.class))
+                .orElse(null);
+	}
+
+	@Override
+	public ReservaTemporalOutDTO guardarReserva(ReservaTemporalInDTO inDTO) {
+		// Crear el horario para la reserva
+	    HorarioEntity horario = new HorarioEntity();
+	    horario.setDia(inDTO.getDia());
+	    horario.setHoraInicio(inDTO.getHoraInicio().atStartOfDay().toLocalTime());
+	    horario.setHoraFin(inDTO.getHoraFin().atStartOfDay().toLocalTime());
+
+	    // Persistir el horario
+	    HorarioEntity horarioGuardado = horarioRepositoryInt.save(horario);
+
+	    // Mapear el DTO a la entidad
+	    ReservaTemporalEntity reservaEntity = new ReservaTemporalEntity();
+	    reservaEntity.setUsuario(inDTO.getUsuario());
+	    reservaEntity.setTipoIdentificacion(inDTO.getTipoIdentificacion());
+	    reservaEntity.setNumeroIdentificacion(inDTO.getIdentificacion());
+	    reservaEntity.setCorreo(inDTO.getCorreo());
+	    reservaEntity.setTipoSolicitante(inDTO.getTipoSolicitante());
+	    reservaEntity.setFechaReserva(inDTO.getFechaReserva());
+	    reservaEntity.setObservaciones(inDTO.getObservaciones());
+
+	    // Asociar el horario creado
+	    reservaEntity.setHorario(horarioGuardado);
+
+	    // Asignar espacio físico
+	    EspacioFisicoEntity espacioFisico = espacioFisicoRepositoryInt.findById(inDTO.getIdEspacioFisico())
+	        .orElseThrow(() -> new RuntimeException("Espacio físico no encontrado"));
+	    reservaEntity.setEspacioFisico(espacioFisico);
+	    
+	    estadoReserva.setIdEstado(2L);
+	    
+	    // Asignar estado inicial
+	    reservaEntity.setEstado(estadoReserva);
+
+	    // Persistir la reserva
+	    ReservaTemporalEntity reservaGuardada = reservaTemporalRepositoryInt.save(reservaEntity);
+	    LogReservasEntity logReservasEntity = null;
+	    logReservasEntity.setAccion("CREAR_RESERVA");
+	    logReservasEntity.setUsuario(inDTO.getUsuario());
+	    logReservasEntity.setFechaModificacion(inDTO.getFechaReserva().atStartOfDay());
+	    logReservasEntity.setReserva(reservaGuardada);
+	    logReservasEntity.setObservaciones(inDTO.getObservaciones());
+	    logReservasRepository.save(logReservasEntity);
+	    // Mapear la entidad a un DTO de salida
+	    return mapper.map(reservaGuardada, ReservaTemporalOutDTO.class);
+	}
+
+}

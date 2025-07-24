@@ -1,0 +1,27 @@
+package co.edu.unicauca.sgph.reservatemporal.infrastructure.mapper;
+
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
+
+import co.edu.unicauca.sgph.reservatemporal.domain.model.ReservaTemporal;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.input.DTORequest.ReservaTemporalInDTO;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.ReservaTemporalEntity;
+
+@org.mapstruct.Mapper(componentModel = "spring")
+public interface ReservaTemporalRestMapper {
+
+	ReservaTemporalRestMapper INSTANCE = Mappers.getMapper(ReservaTemporalRestMapper.class);
+
+    // Mapea de la entidad al modelo de dominio
+    @Mapping(target = "identificacion", source = "numeroIdentificacion") // Mapeo explícito para evitar conflictos
+    ReservaTemporal toReservaTemporal(ReservaTemporalEntity entity);
+
+    // Mapea del modelo de dominio al DTO de entrada/salida
+    ReservaTemporalInDTO toReservaTemporalInDTO(ReservaTemporal reservaTemporal);
+
+    // Mapea una página de ReservaTemporal al DTO de entrada/salida
+    default Page<ReservaTemporalInDTO> toPageReservaTemporalInDTO(Page<ReservaTemporal> reservas) {
+        return reservas.map(this::toReservaTemporalInDTO);
+    }
+}

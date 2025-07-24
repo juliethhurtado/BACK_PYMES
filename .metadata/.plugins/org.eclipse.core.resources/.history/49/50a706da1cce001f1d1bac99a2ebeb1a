@@ -1,0 +1,78 @@
+package co.edu.unicauca.sgph.espaciofisico.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.espaciofisico.domain.model.RecursoEspacioFisico;
+import co.edu.unicauca.sgph.espaciofisico.domain.model.RecursoFisico;
+import co.edu.unicauca.sgph.espaciofisico.infrastructure.input.DTOResponse.RecursoOutDTO;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-01-08T19:00:30-0500",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.41.0.v20241217-1506, environment: Java 17.0.13 (Eclipse Adoptium)"
+)
+@Component
+public class RecursoMapperImpl implements RecursoMapper {
+
+    @Override
+    public RecursoOutDTO toRecursoOutDTO(RecursoEspacioFisico recursoEspacioFisico) {
+        if ( recursoEspacioFisico == null ) {
+            return null;
+        }
+
+        RecursoOutDTO recursoOutDTO = new RecursoOutDTO();
+
+        recursoOutDTO.setIdRecurso( recursoEspacioFisicoRecursoFisicoIdRecursoFisico( recursoEspacioFisico ) );
+        recursoOutDTO.setIdRecursoEspacioFisico( recursoEspacioFisico.getIdRecursoEspacioFisico() );
+        recursoOutDTO.setNombre( recursoEspacioFisicoRecursoFisicoNombre( recursoEspacioFisico ) );
+        recursoOutDTO.setDescripcion( recursoEspacioFisicoRecursoFisicoDescripcion( recursoEspacioFisico ) );
+        recursoOutDTO.setCantidad( recursoEspacioFisico.getCantidad() );
+
+        return recursoOutDTO;
+    }
+
+    private Long recursoEspacioFisicoRecursoFisicoIdRecursoFisico(RecursoEspacioFisico recursoEspacioFisico) {
+        if ( recursoEspacioFisico == null ) {
+            return null;
+        }
+        RecursoFisico recursoFisico = recursoEspacioFisico.getRecursoFisico();
+        if ( recursoFisico == null ) {
+            return null;
+        }
+        Long idRecursoFisico = recursoFisico.getIdRecursoFisico();
+        if ( idRecursoFisico == null ) {
+            return null;
+        }
+        return idRecursoFisico;
+    }
+
+    private String recursoEspacioFisicoRecursoFisicoNombre(RecursoEspacioFisico recursoEspacioFisico) {
+        if ( recursoEspacioFisico == null ) {
+            return null;
+        }
+        RecursoFisico recursoFisico = recursoEspacioFisico.getRecursoFisico();
+        if ( recursoFisico == null ) {
+            return null;
+        }
+        String nombre = recursoFisico.getNombre();
+        if ( nombre == null ) {
+            return null;
+        }
+        return nombre;
+    }
+
+    private String recursoEspacioFisicoRecursoFisicoDescripcion(RecursoEspacioFisico recursoEspacioFisico) {
+        if ( recursoEspacioFisico == null ) {
+            return null;
+        }
+        RecursoFisico recursoFisico = recursoEspacioFisico.getRecursoFisico();
+        if ( recursoFisico == null ) {
+            return null;
+        }
+        String descripcion = recursoFisico.getDescripcion();
+        if ( descripcion == null ) {
+            return null;
+        }
+        return descripcion;
+    }
+}

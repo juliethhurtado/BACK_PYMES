@@ -1,0 +1,112 @@
+package co.edu.unicauca.sgph.reservatemporal.infrastructure.mapper;
+
+import co.edu.unicauca.sgph.reservatemporal.domain.model.ReservaTemporal;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.input.DTORequest.ReservaTemporalInDTO;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.input.DTOResponse.ReservaTemporalOutDTO;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-07-08T12:25:09-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class ReservaTemporalRestMapperImpl implements ReservaTemporalRestMapper {
+
+    @Override
+    public ReservaTemporalOutDTO toReservaTemporalOutDTO(ReservaTemporal reservaTemporal) {
+        if ( reservaTemporal == null ) {
+            return null;
+        }
+
+        ReservaTemporalOutDTO reservaTemporalOutDTO = new ReservaTemporalOutDTO();
+
+        reservaTemporalOutDTO.setIdReserva( reservaTemporal.getIdReserva() );
+        reservaTemporalOutDTO.setIdEspacioFisico( reservaTemporal.getIdEspacioFisico() );
+        reservaTemporalOutDTO.setIdUsuario( reservaTemporal.getIdUsuario() );
+        reservaTemporalOutDTO.setFechaReserva( reservaTemporal.getFechaReserva() );
+        reservaTemporalOutDTO.setEstado( reservaTemporal.getEstado() );
+        reservaTemporalOutDTO.setObservaciones( reservaTemporal.getObservaciones() );
+
+        return reservaTemporalOutDTO;
+    }
+
+    @Override
+    public ReservaTemporal toReservaTemporal(ReservaTemporalInDTO inDTO) {
+        if ( inDTO == null ) {
+            return null;
+        }
+
+        ReservaTemporal reservaTemporal = new ReservaTemporal();
+
+        reservaTemporal.setIdReserva( inDTO.getIdReserva() );
+        reservaTemporal.setIdEspacioFisico( inDTO.getIdEspacioFisico() );
+        reservaTemporal.setFechaReserva( inDTO.getFechaReserva() );
+        reservaTemporal.setEstado( inDTO.getEstado() );
+        reservaTemporal.setObservaciones( inDTO.getObservaciones() );
+        reservaTemporal.setSalon( inDTO.getSalon() );
+        reservaTemporal.setIdUbicacion( inDTO.getIdUbicacion() );
+        reservaTemporal.setUsuario( inDTO.getUsuario() );
+        reservaTemporal.setCorreo( inDTO.getCorreo() );
+        reservaTemporal.setTipoIdentificacion( inDTO.getTipoIdentificacion() );
+        reservaTemporal.setTipoSolicitante( inDTO.getTipoSolicitante() );
+        if ( inDTO.getHoraInicio() != null ) {
+            reservaTemporal.setHoraInicio( DateTimeFormatter.ISO_LOCAL_TIME.format( inDTO.getHoraInicio() ) );
+        }
+        if ( inDTO.getHoraFin() != null ) {
+            reservaTemporal.setHoraFin( DateTimeFormatter.ISO_LOCAL_TIME.format( inDTO.getHoraFin() ) );
+        }
+        reservaTemporal.setObservacionesPrestamista( inDTO.getObservacionesPrestamista() );
+
+        return reservaTemporal;
+    }
+
+    @Override
+    public ReservaTemporalInDTO toReservaTemporalInDTO(ReservaTemporal reservaTemporal) {
+        if ( reservaTemporal == null ) {
+            return null;
+        }
+
+        ReservaTemporalInDTO reservaTemporalInDTO = new ReservaTemporalInDTO();
+
+        reservaTemporalInDTO.setIdEspacioFisico( reservaTemporal.getIdEspacioFisico() );
+        reservaTemporalInDTO.setFechaReserva( reservaTemporal.getFechaReserva() );
+        reservaTemporalInDTO.setEstado( reservaTemporal.getEstado() );
+        reservaTemporalInDTO.setObservaciones( reservaTemporal.getObservaciones() );
+        reservaTemporalInDTO.setSalon( reservaTemporal.getSalon() );
+        reservaTemporalInDTO.setIdUbicacion( reservaTemporal.getIdUbicacion() );
+        reservaTemporalInDTO.setUsuario( reservaTemporal.getUsuario() );
+        reservaTemporalInDTO.setCorreo( reservaTemporal.getCorreo() );
+        reservaTemporalInDTO.setTipoIdentificacion( reservaTemporal.getTipoIdentificacion() );
+        reservaTemporalInDTO.setTipoSolicitante( reservaTemporal.getTipoSolicitante() );
+        if ( reservaTemporal.getHoraInicio() != null ) {
+            reservaTemporalInDTO.setHoraInicio( LocalTime.parse( reservaTemporal.getHoraInicio() ) );
+        }
+        if ( reservaTemporal.getHoraFin() != null ) {
+            reservaTemporalInDTO.setHoraFin( LocalTime.parse( reservaTemporal.getHoraFin() ) );
+        }
+        reservaTemporalInDTO.setObservacionesPrestamista( reservaTemporal.getObservacionesPrestamista() );
+        reservaTemporalInDTO.setIdReserva( reservaTemporal.getIdReserva() );
+
+        return reservaTemporalInDTO;
+    }
+
+    @Override
+    public List<ReservaTemporalOutDTO> toLstReservaTemporalOutDTO(List<ReservaTemporal> lstReservaTemporal) {
+        if ( lstReservaTemporal == null ) {
+            return null;
+        }
+
+        List<ReservaTemporalOutDTO> list = new ArrayList<ReservaTemporalOutDTO>( lstReservaTemporal.size() );
+        for ( ReservaTemporal reservaTemporal : lstReservaTemporal ) {
+            list.add( toReservaTemporalOutDTO( reservaTemporal ) );
+        }
+
+        return list;
+    }
+}

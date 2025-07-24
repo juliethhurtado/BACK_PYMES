@@ -1,0 +1,236 @@
+package co.edu.unicauca.sgph.docente.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.departamento.domain.model.Departamento;
+import co.edu.unicauca.sgph.docente.domain.model.Docente;
+import co.edu.unicauca.sgph.docente.infrastructure.input.DTORequest.DocenteInDTO;
+import co.edu.unicauca.sgph.docente.infrastructure.input.DTOResponse.DocenteOutDTO;
+import co.edu.unicauca.sgph.persona.domain.model.Persona;
+import co.edu.unicauca.sgph.persona.domain.model.TipoIdentificacion;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-07-08T12:25:09-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class DocenteRestMapperImpl implements DocenteRestMapper {
+
+    @Override
+    public DocenteOutDTO toDocenteOutDTO(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+
+        DocenteOutDTO docenteOutDTO = new DocenteOutDTO();
+
+        docenteOutDTO.setIdPersona( docentePersonaIdPersona( docente ) );
+        docenteOutDTO.setIdTipoIdentificacion( docentePersonaTipoIdentificacionIdTipoIdentificacion( docente ) );
+        docenteOutDTO.setCodigoTipoIdentificacion( docentePersonaTipoIdentificacionCodigoTipoIdentificacion( docente ) );
+        docenteOutDTO.setNumeroIdentificacion( docentePersonaNumeroIdentificacion( docente ) );
+        docenteOutDTO.setPrimerNombre( docentePersonaPrimerNombre( docente ) );
+        docenteOutDTO.setSegundoNombre( docentePersonaSegundoNombre( docente ) );
+        docenteOutDTO.setPrimerApellido( docentePersonaPrimerApellido( docente ) );
+        docenteOutDTO.setSegundoApellido( docentePersonaSegundoApellido( docente ) );
+        docenteOutDTO.setEmail( docentePersonaEmail( docente ) );
+        docenteOutDTO.setIdDepartamento( docenteDepartamentoIdDepartamento( docente ) );
+        docenteOutDTO.setCodigo( docente.getCodigo() );
+        docenteOutDTO.setEstado( docente.getEstado() );
+        docenteOutDTO.setIdDocente( docente.getIdDocente() );
+
+        return docenteOutDTO;
+    }
+
+    @Override
+    public Docente toDocente(DocenteInDTO docenteInDTO) {
+        if ( docenteInDTO == null ) {
+            return null;
+        }
+
+        Docente docente = new Docente();
+
+        docente.setCodigo( docenteInDTO.getCodigo() );
+        docente.setEstado( docenteInDTO.getEstado() );
+        docente.setIdDocente( docenteInDTO.getIdDocente() );
+
+        docente.setPersona( new Persona(docenteInDTO.getIdPersona()) );
+        docente.setDepartamento( docenteInDTO.getIdDepartamento() != null ? new Departamento(docenteInDTO.getIdDepartamento()) : null );
+
+        return docente;
+    }
+
+    @Override
+    public List<DocenteOutDTO> toLstDocenteOutDTO(List<Docente> lstDocente) {
+        if ( lstDocente == null ) {
+            return null;
+        }
+
+        List<DocenteOutDTO> list = new ArrayList<DocenteOutDTO>( lstDocente.size() );
+        for ( Docente docente : lstDocente ) {
+            list.add( toDocenteOutDTO( docente ) );
+        }
+
+        return list;
+    }
+
+    private Long docentePersonaIdPersona(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Persona persona = docente.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        Long idPersona = persona.getIdPersona();
+        if ( idPersona == null ) {
+            return null;
+        }
+        return idPersona;
+    }
+
+    private Long docentePersonaTipoIdentificacionIdTipoIdentificacion(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Persona persona = docente.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        TipoIdentificacion tipoIdentificacion = persona.getTipoIdentificacion();
+        if ( tipoIdentificacion == null ) {
+            return null;
+        }
+        Long idTipoIdentificacion = tipoIdentificacion.getIdTipoIdentificacion();
+        if ( idTipoIdentificacion == null ) {
+            return null;
+        }
+        return idTipoIdentificacion;
+    }
+
+    private String docentePersonaTipoIdentificacionCodigoTipoIdentificacion(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Persona persona = docente.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        TipoIdentificacion tipoIdentificacion = persona.getTipoIdentificacion();
+        if ( tipoIdentificacion == null ) {
+            return null;
+        }
+        String codigoTipoIdentificacion = tipoIdentificacion.getCodigoTipoIdentificacion();
+        if ( codigoTipoIdentificacion == null ) {
+            return null;
+        }
+        return codigoTipoIdentificacion;
+    }
+
+    private String docentePersonaNumeroIdentificacion(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Persona persona = docente.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String numeroIdentificacion = persona.getNumeroIdentificacion();
+        if ( numeroIdentificacion == null ) {
+            return null;
+        }
+        return numeroIdentificacion;
+    }
+
+    private String docentePersonaPrimerNombre(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Persona persona = docente.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String primerNombre = persona.getPrimerNombre();
+        if ( primerNombre == null ) {
+            return null;
+        }
+        return primerNombre;
+    }
+
+    private String docentePersonaSegundoNombre(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Persona persona = docente.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String segundoNombre = persona.getSegundoNombre();
+        if ( segundoNombre == null ) {
+            return null;
+        }
+        return segundoNombre;
+    }
+
+    private String docentePersonaPrimerApellido(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Persona persona = docente.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String primerApellido = persona.getPrimerApellido();
+        if ( primerApellido == null ) {
+            return null;
+        }
+        return primerApellido;
+    }
+
+    private String docentePersonaSegundoApellido(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Persona persona = docente.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String segundoApellido = persona.getSegundoApellido();
+        if ( segundoApellido == null ) {
+            return null;
+        }
+        return segundoApellido;
+    }
+
+    private String docentePersonaEmail(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Persona persona = docente.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String email = persona.getEmail();
+        if ( email == null ) {
+            return null;
+        }
+        return email;
+    }
+
+    private Long docenteDepartamentoIdDepartamento(Docente docente) {
+        if ( docente == null ) {
+            return null;
+        }
+        Departamento departamento = docente.getDepartamento();
+        if ( departamento == null ) {
+            return null;
+        }
+        Long idDepartamento = departamento.getIdDepartamento();
+        if ( idDepartamento == null ) {
+            return null;
+        }
+        return idDepartamento;
+    }
+}

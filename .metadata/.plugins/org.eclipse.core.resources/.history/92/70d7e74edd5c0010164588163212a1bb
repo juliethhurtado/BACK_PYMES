@@ -1,0 +1,62 @@
+package co.edu.unicauca.sgph.facultad.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.facultad.domain.model.Facultad;
+import co.edu.unicauca.sgph.facultad.infrastructure.input.DTORequest.FacultadInDTO;
+import co.edu.unicauca.sgph.facultad.infrastructure.input.DTOResponse.FacultadOutDTO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-07-08T12:25:07-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class FacultadRestMapperImpl implements FacultadRestMapper {
+
+    @Override
+    public FacultadOutDTO toFacultadOutDTO(Facultad facultad) {
+        if ( facultad == null ) {
+            return null;
+        }
+
+        FacultadOutDTO facultadOutDTO = new FacultadOutDTO();
+
+        facultadOutDTO.setIdFacultad( facultad.getIdFacultad() );
+        facultadOutDTO.setNombre( facultad.getNombre() );
+        facultadOutDTO.setAbreviatura( facultad.getAbreviatura() );
+
+        return facultadOutDTO;
+    }
+
+    @Override
+    public Facultad toFacultad(FacultadInDTO facultadInDTO) {
+        if ( facultadInDTO == null ) {
+            return null;
+        }
+
+        Facultad facultad = new Facultad();
+
+        facultad.setIdFacultad( facultadInDTO.getIdFacultad() );
+        facultad.setNombre( facultadInDTO.getNombre() );
+        facultad.setAbreviatura( facultadInDTO.getAbreviatura() );
+
+        return facultad;
+    }
+
+    @Override
+    public List<FacultadOutDTO> toLstFacultadOutDTO(List<Facultad> lstFacultad) {
+        if ( lstFacultad == null ) {
+            return null;
+        }
+
+        List<FacultadOutDTO> list = new ArrayList<FacultadOutDTO>( lstFacultad.size() );
+        for ( Facultad facultad : lstFacultad ) {
+            list.add( toFacultadOutDTO( facultad ) );
+        }
+
+        return list;
+    }
+}

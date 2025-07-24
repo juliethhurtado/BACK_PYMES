@@ -1,0 +1,53 @@
+package co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.mapper;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import co.edu.unicauca.sgph.reservatemporal.domain.model.ReservaTemporal;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.input.DTORequest.ReservaTemporalInDTO;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.ReservaTemporalEntity;
+
+@Configuration
+public class ReservaTemporalPersistenceMapper {
+	
+	@Bean
+    public ModelMapper modelMapper() {
+		ModelMapper modelMapper = new ModelMapper();
+
+	    modelMapper.getConfiguration()
+	               // Evita que ModelMapper intente mapear automáticamente por fields
+	               .setFieldMatchingEnabled(false)
+	               // Ignora cuando haya dos posibles fuentes de datos
+	               .setAmbiguityIgnored(true)
+	               .setSkipNullEnabled(true);
+
+	    // Aquí mapeas explícitamente la entidad -> tu DTO de entrada/salida
+	    modelMapper.typeMap(ReservaTemporalEntity.class, ReservaTemporalInDTO.class)
+	        .addMappings(mapping -> {
+	            // Dile con cuál de los dos campos llenar "identificacion" en el DTO:
+	            mapping.map(ReservaTemporalEntity::getNumeroIdentificacion, 
+	                        ReservaTemporalInDTO::setIdentificacion);
+
+	            // Si en tu DTO quieres mostrar "tipoIdentificacion" tal cual
+	            mapping.map(ReservaTemporalEntity::getTipoIdentificacion,
+	                        ReservaTemporalInDTO::setTipoIdentificacion);
+
+	            // Ejemplo: Si quieres mostrar el "nombre" del estado en vez de 
+	            // la referencia al objeto EstadoReservaEntity
+	            mapping.map(src -> src.getEstado() != null ? src.getEstado().getDescripcion() : null,
+	                        ReservaTemporalInDTO::setEstado);
+
+	            // Si "salon" o "idUbicacion" los sacas de EspacioFisicoEntity, hazlo así:
+	            mapping.map(src -> src.getEspacioFisico().getSalon(), 
+	                        ReservaTemporalInDTO::setSalon);
+	            mapping.map(src -> src.getEspacioFisico().getUbicacion().getIdUbicacion(), 
+	                        ReservaTemporalInDTO::setIdUbicacion);
+
+	            // etc. según tu modelo real...
+	        });
+
+	    return modelMapper;
+    }
+}

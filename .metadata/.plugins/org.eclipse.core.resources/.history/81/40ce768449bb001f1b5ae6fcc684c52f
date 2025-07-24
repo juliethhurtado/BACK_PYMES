@@ -1,0 +1,52 @@
+package co.edu.unicauca.sgph.horario.infrastructure.output.persistence.repository;
+
+import java.time.LocalTime;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import co.edu.unicauca.sgph.common.enums.DiaSemanaEnum;
+import co.edu.unicauca.sgph.curso.infrastructure.output.persistence.entity.CursoEntity;
+import co.edu.unicauca.sgph.horario.infrastructure.input.DTOResponse.FranjaLibreOutDTO;
+import co.edu.unicauca.sgph.horario.infrastructure.output.persistence.entity.HorarioEntity;
+
+public interface HorarioRepositoryInt extends JpaRepository<HorarioEntity, Long> {
+					    	
+	public List<HorarioEntity> findByCurso(CursoEntity curso);
+	
+	@Query("SELECT new co.edu.unicauca.sgph.horario.infrastructure.input.DTOResponse.FranjaLibreOutDTO(" +
+		       "    ef.idEspacioFisico, " +
+		       "    h.dia, " +
+		       "    h.horaInicio, " +
+		       "    h.horaFin, " +
+		       "    ef.salon, " +
+		       "    ef.capacidad, " +
+		       "    te.tipo, " +
+		       "    u.nombre " +
+		       ") " +
+		       "FROM EspacioFisicoEntity ef " +
+		       "LEFT JOIN HorarioEspacioEntity he ON ef.idEspacioFisico = he.idHorarioEspacio.idEspacioFisico " +
+		       "LEFT JOIN HorarioEntity h ON he.idHorarioEspacio.idHorario = h.idHorario " +
+		       "LEFT JOIN TipoEspacioFisicoEntity te ON ef.tipoEspacioFisico.tipo = te.tipo " +
+		       "LEFT JOIN UbicacionEntity u ON ef.ubicacion.nombre = u.nombre " +
+		       "WHERE (:idEspacioFisico IS NULL OR ef.idEspacioFisico = :idEspacioFisico) " +
+		       "AND (:salon IS NULL OR ef.salon = :salon) " +
+		       "AND (:dia IS NULL OR h.dia = :dia) " +
+		       "AND (:ubicacion IS NULL OR ef.ubicacion.idUbicacion IN :ubicacion) " +
+		       "AND (:horaInicio IS NULL OR :horaFin IS NULL OR " +
+		       "     :horaInicio < h.horaFin AND :horaFin > h.horaInicio)")
+		Page<FranjaLibreOutDTO> filtrarFranjasLibres(
+		    @Param("idEspacioFisico") Long idEspacioFisico,
+		    @Param("dia") DiaSemanaEnum dia,
+		    @Param("horaInicio") LocalTime horaInicio,
+		    @Param("horaFin") LocalTime horaFin,
+		    @Param("salon") String salon,
+		    @Param("ubicacion") List<Long> ubicacion,
+		    Pageable pageable
+		);
+
+}

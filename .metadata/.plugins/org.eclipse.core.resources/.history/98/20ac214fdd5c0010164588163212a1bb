@@ -1,0 +1,64 @@
+package co.edu.unicauca.sgph.docente.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.docente.domain.model.Docente;
+import co.edu.unicauca.sgph.docente.infrastructure.input.DTORequest.DocenteLaborDTO;
+import co.edu.unicauca.sgph.persona.domain.model.Persona;
+import co.edu.unicauca.sgph.persona.domain.model.TipoIdentificacion;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-07-08T12:25:07-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class DocenteLaborMapperImpl implements DocenteLaborMapper {
+
+    @Override
+    public Docente toDocente(DocenteLaborDTO dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        Docente docente = new Docente();
+
+        docente.setPersona( docenteLaborDTOToPersona( dto ) );
+        docente.setCodigo( dto.getIdentificacion() );
+        docente.setDepartamento( map( dto.getDepartamento() ) );
+
+        docente.setEstado( co.edu.unicauca.sgph.docente.infrastructure.output.persistence.entity.EstadoDocenteEnum.ACTIVO );
+
+        return docente;
+    }
+
+    protected TipoIdentificacion docenteLaborDTOToTipoIdentificacion(DocenteLaborDTO docenteLaborDTO) {
+        if ( docenteLaborDTO == null ) {
+            return null;
+        }
+
+        TipoIdentificacion tipoIdentificacion = new TipoIdentificacion();
+
+        tipoIdentificacion.setIdTipoIdentificacion( (long) 1L );
+
+        return tipoIdentificacion;
+    }
+
+    protected Persona docenteLaborDTOToPersona(DocenteLaborDTO docenteLaborDTO) {
+        if ( docenteLaborDTO == null ) {
+            return null;
+        }
+
+        Persona persona = new Persona();
+
+        persona.setNumeroIdentificacion( docenteLaborDTO.getIdentificacion() );
+        persona.setPrimerNombre( docenteLaborDTO.getPrimerNombre() );
+        persona.setSegundoNombre( docenteLaborDTO.getSegundoNombre() );
+        persona.setPrimerApellido( docenteLaborDTO.getPrimerApellido() );
+        persona.setSegundoApellido( docenteLaborDTO.getSegundoApellido() );
+        persona.setEmail( docenteLaborDTO.getCorreo() );
+        persona.setTipoIdentificacion( docenteLaborDTOToTipoIdentificacion( docenteLaborDTO ) );
+
+        return persona;
+    }
+}

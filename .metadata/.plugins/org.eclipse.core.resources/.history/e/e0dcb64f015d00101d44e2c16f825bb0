@@ -1,0 +1,255 @@
+package co.edu.unicauca.sgph.usuario.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.persona.domain.model.Persona;
+import co.edu.unicauca.sgph.persona.domain.model.TipoIdentificacion;
+import co.edu.unicauca.sgph.usuario.domain.model.Rol;
+import co.edu.unicauca.sgph.usuario.domain.model.Usuario;
+import co.edu.unicauca.sgph.usuario.infrastructure.input.DTORequest.UsuarioInDTO;
+import co.edu.unicauca.sgph.usuario.infrastructure.input.DTOResponse.RolOutDTO;
+import co.edu.unicauca.sgph.usuario.infrastructure.input.DTOResponse.UsuarioOutDTO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-07-09T11:00:33-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class UsuarioRestMapperImpl implements UsuarioRestMapper {
+
+    @Override
+    public RolOutDTO toRolOutDTO(Rol rol) {
+        if ( rol == null ) {
+            return null;
+        }
+
+        RolOutDTO rolOutDTO = new RolOutDTO();
+
+        rolOutDTO.setIdRol( rol.getIdRol() );
+        rolOutDTO.setRolUsuario( rol.getRolUsuario() );
+
+        return rolOutDTO;
+    }
+
+    @Override
+    public List<RolOutDTO> toLstRolOutDTO(List<Rol> rol) {
+        if ( rol == null ) {
+            return null;
+        }
+
+        List<RolOutDTO> list = new ArrayList<RolOutDTO>( rol.size() );
+        for ( Rol rol1 : rol ) {
+            list.add( toRolOutDTO( rol1 ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public UsuarioOutDTO toUsuarioOutDTO(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+
+        UsuarioOutDTO usuarioOutDTO = new UsuarioOutDTO();
+
+        usuarioOutDTO.setIdPersona( usuarioPersonaIdPersona( usuario ) );
+        usuarioOutDTO.setIdTipoIdentificacion( usuarioPersonaTipoIdentificacionIdTipoIdentificacion( usuario ) );
+        usuarioOutDTO.setCodigoTipoIdentificacion( usuarioPersonaTipoIdentificacionCodigoTipoIdentificacion( usuario ) );
+        usuarioOutDTO.setNumeroIdentificacion( usuarioPersonaNumeroIdentificacion( usuario ) );
+        usuarioOutDTO.setPrimerNombre( usuarioPersonaPrimerNombre( usuario ) );
+        usuarioOutDTO.setSegundoNombre( usuarioPersonaSegundoNombre( usuario ) );
+        usuarioOutDTO.setPrimerApellido( usuarioPersonaPrimerApellido( usuario ) );
+        usuarioOutDTO.setSegundoApellido( usuarioPersonaSegundoApellido( usuario ) );
+        usuarioOutDTO.setEmail( usuarioPersonaEmail( usuario ) );
+        usuarioOutDTO.setLstIdRol( tolstIdRol( usuario.getRoles() ) );
+        usuarioOutDTO.setLstRol( mapRolesToRolUsuario( usuario.getRoles() ) );
+        usuarioOutDTO.setLstIdPrograma( tolstIdPrograma( usuario.getProgramas() ) );
+        usuarioOutDTO.setNombreUsuario( usuario.getNombreUsuario() );
+        usuarioOutDTO.setPassword( usuario.getPassword() );
+        usuarioOutDTO.setEstado( usuario.getEstado() );
+        usuarioOutDTO.setIdUsuario( usuario.getIdUsuario() );
+
+        return usuarioOutDTO;
+    }
+
+    @Override
+    public Usuario toUsuario(UsuarioInDTO usuarioInDTO) {
+        if ( usuarioInDTO == null ) {
+            return null;
+        }
+
+        Usuario usuario = new Usuario();
+
+        usuario.setRoles( toRol( usuarioInDTO.getLstIdRol() ) );
+        usuario.setProgramas( toPrograma( usuarioInDTO.getLstIdPrograma() ) );
+        usuario.setNombreUsuario( usuarioInDTO.getNombreUsuario() );
+        usuario.setPassword( usuarioInDTO.getPassword() );
+        usuario.setEstado( usuarioInDTO.getEstado() );
+        usuario.setIdUsuario( usuarioInDTO.getIdUsuario() );
+
+        usuario.setPersona( new Persona(usuarioInDTO.getIdPersona()) );
+
+        return usuario;
+    }
+
+    @Override
+    public List<UsuarioOutDTO> toLstUsuarioOutDTO(List<Usuario> lstUsuario) {
+        if ( lstUsuario == null ) {
+            return null;
+        }
+
+        List<UsuarioOutDTO> list = new ArrayList<UsuarioOutDTO>( lstUsuario.size() );
+        for ( Usuario usuario : lstUsuario ) {
+            list.add( toUsuarioOutDTO( usuario ) );
+        }
+
+        return list;
+    }
+
+    private Long usuarioPersonaIdPersona(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+        Persona persona = usuario.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        Long idPersona = persona.getIdPersona();
+        if ( idPersona == null ) {
+            return null;
+        }
+        return idPersona;
+    }
+
+    private Long usuarioPersonaTipoIdentificacionIdTipoIdentificacion(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+        Persona persona = usuario.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        TipoIdentificacion tipoIdentificacion = persona.getTipoIdentificacion();
+        if ( tipoIdentificacion == null ) {
+            return null;
+        }
+        Long idTipoIdentificacion = tipoIdentificacion.getIdTipoIdentificacion();
+        if ( idTipoIdentificacion == null ) {
+            return null;
+        }
+        return idTipoIdentificacion;
+    }
+
+    private String usuarioPersonaTipoIdentificacionCodigoTipoIdentificacion(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+        Persona persona = usuario.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        TipoIdentificacion tipoIdentificacion = persona.getTipoIdentificacion();
+        if ( tipoIdentificacion == null ) {
+            return null;
+        }
+        String codigoTipoIdentificacion = tipoIdentificacion.getCodigoTipoIdentificacion();
+        if ( codigoTipoIdentificacion == null ) {
+            return null;
+        }
+        return codigoTipoIdentificacion;
+    }
+
+    private String usuarioPersonaNumeroIdentificacion(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+        Persona persona = usuario.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String numeroIdentificacion = persona.getNumeroIdentificacion();
+        if ( numeroIdentificacion == null ) {
+            return null;
+        }
+        return numeroIdentificacion;
+    }
+
+    private String usuarioPersonaPrimerNombre(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+        Persona persona = usuario.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String primerNombre = persona.getPrimerNombre();
+        if ( primerNombre == null ) {
+            return null;
+        }
+        return primerNombre;
+    }
+
+    private String usuarioPersonaSegundoNombre(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+        Persona persona = usuario.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String segundoNombre = persona.getSegundoNombre();
+        if ( segundoNombre == null ) {
+            return null;
+        }
+        return segundoNombre;
+    }
+
+    private String usuarioPersonaPrimerApellido(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+        Persona persona = usuario.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String primerApellido = persona.getPrimerApellido();
+        if ( primerApellido == null ) {
+            return null;
+        }
+        return primerApellido;
+    }
+
+    private String usuarioPersonaSegundoApellido(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+        Persona persona = usuario.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String segundoApellido = persona.getSegundoApellido();
+        if ( segundoApellido == null ) {
+            return null;
+        }
+        return segundoApellido;
+    }
+
+    private String usuarioPersonaEmail(Usuario usuario) {
+        if ( usuario == null ) {
+            return null;
+        }
+        Persona persona = usuario.getPersona();
+        if ( persona == null ) {
+            return null;
+        }
+        String email = persona.getEmail();
+        if ( email == null ) {
+            return null;
+        }
+        return email;
+    }
+}

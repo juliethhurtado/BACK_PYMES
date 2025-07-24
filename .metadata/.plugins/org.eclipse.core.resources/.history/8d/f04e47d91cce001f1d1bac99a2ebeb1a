@@ -1,0 +1,113 @@
+package co.edu.unicauca.sgph.agrupador.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.agrupador.domain.model.AgrupadorEspacioFisico;
+import co.edu.unicauca.sgph.agrupador.infrastructure.input.DTORequest.AgrupadorEspacioFisicoInDTO;
+import co.edu.unicauca.sgph.agrupador.infrastructure.input.DTOResponse.AgrupadorEspacioFisicoOutDTO;
+import co.edu.unicauca.sgph.asignatura.infrastructure.input.DTOResponse.AgrupadorEspacioFisicoDTO;
+import co.edu.unicauca.sgph.facultad.domain.model.Facultad;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-01-08T19:00:28-0500",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.41.0.v20241217-1506, environment: Java 17.0.13 (Eclipse Adoptium)"
+)
+@Component
+public class AgrupadorEspacioFisicoRestMapperImpl implements AgrupadorEspacioFisicoRestMapper {
+
+    @Override
+    public AgrupadorEspacioFisicoOutDTO toAgrupadorEspacioFisicoOutDTO(AgrupadorEspacioFisico agrupadorEspacioFisico) {
+        if ( agrupadorEspacioFisico == null ) {
+            return null;
+        }
+
+        AgrupadorEspacioFisicoOutDTO agrupadorEspacioFisicoOutDTO = new AgrupadorEspacioFisicoOutDTO();
+
+        agrupadorEspacioFisicoOutDTO.setIdFacultad( agrupadorEspacioFisicoFacultadIdFacultad( agrupadorEspacioFisico ) );
+        agrupadorEspacioFisicoOutDTO.setIdAgrupadorEspacioFisico( agrupadorEspacioFisico.getIdAgrupadorEspacioFisico() );
+        agrupadorEspacioFisicoOutDTO.setNombre( agrupadorEspacioFisico.getNombre() );
+        agrupadorEspacioFisicoOutDTO.setObservacion( agrupadorEspacioFisico.getObservacion() );
+
+        return agrupadorEspacioFisicoOutDTO;
+    }
+
+    @Override
+    public AgrupadorEspacioFisico toAgrupadorEspacioFisico(AgrupadorEspacioFisicoInDTO agrupadorEspacioFisicoInDTO) {
+        if ( agrupadorEspacioFisicoInDTO == null ) {
+            return null;
+        }
+
+        AgrupadorEspacioFisico agrupadorEspacioFisico = new AgrupadorEspacioFisico();
+
+        agrupadorEspacioFisico.setIdAgrupadorEspacioFisico( agrupadorEspacioFisicoInDTO.getIdAgrupadorEspacioFisico() );
+        agrupadorEspacioFisico.setNombre( agrupadorEspacioFisicoInDTO.getNombre() );
+        agrupadorEspacioFisico.setObservacion( agrupadorEspacioFisicoInDTO.getObservacion() );
+
+        agrupadorEspacioFisico.setFacultad( new Facultad(agrupadorEspacioFisicoInDTO.getIdFacultad()) );
+
+        return agrupadorEspacioFisico;
+    }
+
+    @Override
+    public List<AgrupadorEspacioFisicoOutDTO> toLstAgrupadorEspacioFisicoOutDTO(List<AgrupadorEspacioFisico> lstAgrupadorEspacioFisico) {
+        if ( lstAgrupadorEspacioFisico == null ) {
+            return null;
+        }
+
+        List<AgrupadorEspacioFisicoOutDTO> list = new ArrayList<AgrupadorEspacioFisicoOutDTO>( lstAgrupadorEspacioFisico.size() );
+        for ( AgrupadorEspacioFisico agrupadorEspacioFisico : lstAgrupadorEspacioFisico ) {
+            list.add( toAgrupadorEspacioFisicoOutDTO( agrupadorEspacioFisico ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public AgrupadorEspacioFisicoDTO toAgrupadorEspacioFisicoDTO(AgrupadorEspacioFisico agrupadorEspacioFisico) {
+        if ( agrupadorEspacioFisico == null ) {
+            return null;
+        }
+
+        AgrupadorEspacioFisicoDTO agrupadorEspacioFisicoDTO = new AgrupadorEspacioFisicoDTO();
+
+        agrupadorEspacioFisicoDTO.setNombreFacultad( agrupadorEspacioFisicoFacultadNombre( agrupadorEspacioFisico ) );
+        agrupadorEspacioFisicoDTO.setIdFacultad( agrupadorEspacioFisicoFacultadIdFacultad( agrupadorEspacioFisico ) );
+        agrupadorEspacioFisicoDTO.setIdAgrupadorEspacioFisico( agrupadorEspacioFisico.getIdAgrupadorEspacioFisico() );
+        agrupadorEspacioFisicoDTO.setNombre( agrupadorEspacioFisico.getNombre() );
+
+        return agrupadorEspacioFisicoDTO;
+    }
+
+    private Long agrupadorEspacioFisicoFacultadIdFacultad(AgrupadorEspacioFisico agrupadorEspacioFisico) {
+        if ( agrupadorEspacioFisico == null ) {
+            return null;
+        }
+        Facultad facultad = agrupadorEspacioFisico.getFacultad();
+        if ( facultad == null ) {
+            return null;
+        }
+        Long idFacultad = facultad.getIdFacultad();
+        if ( idFacultad == null ) {
+            return null;
+        }
+        return idFacultad;
+    }
+
+    private String agrupadorEspacioFisicoFacultadNombre(AgrupadorEspacioFisico agrupadorEspacioFisico) {
+        if ( agrupadorEspacioFisico == null ) {
+            return null;
+        }
+        Facultad facultad = agrupadorEspacioFisico.getFacultad();
+        if ( facultad == null ) {
+            return null;
+        }
+        String nombre = facultad.getNombre();
+        if ( nombre == null ) {
+            return null;
+        }
+        return nombre;
+    }
+}

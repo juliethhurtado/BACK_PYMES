@@ -1,0 +1,58 @@
+package co.edu.unicauca.sgph.horario.infrastructure.output.persistence.repository;
+
+import java.time.LocalTime;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import co.edu.unicauca.sgph.common.enums.DiaSemanaEnum;
+import co.edu.unicauca.sgph.curso.infrastructure.output.persistence.entity.CursoEntity;
+import co.edu.unicauca.sgph.horario.infrastructure.input.DTOResponse.FranjaLibreOutDTO;
+import co.edu.unicauca.sgph.horario.infrastructure.output.persistence.entity.HorarioEntity;
+
+public interface HorarioRepositoryInt extends JpaRepository<HorarioEntity, Long> {
+					    	
+	public List<HorarioEntity> findByCurso(CursoEntity curso);
+	
+	@Query("SELECT new co.edu.unicauca.sgph.horario.infrastructure.input.DTOResponse.FranjaLibreOutDTO(" +
+		       "    ef.idEspacioFisico, " +
+		       "    :dia, " +
+		       "    franja.horaInicio, " +
+		       "    franja.horaFin, " +
+		       "    ef.salon, " +
+		       "    ef.capacidad, " +
+		       "    te.tipo, " +
+		       "    u.nombre " +
+		       ") " +
+		       "FROM EspacioFisicoEntity ef " +
+		       "LEFT JOIN TipoEspacioFisicoEntity te ON ef.tipoEspacioFisico.tipo = te.tipo " +
+		       "LEFT JOIN UbicacionEntity u ON ef.ubicacion.nombre = u.nombre, " +
+		       "(SELECT CAST('07:00' AS time) + (num * interval '2 hour') AS horaInicio, " +
+		       "        CAST('07:00' AS time) + ((num + 1) * interval '2 hour') AS horaFin " +
+		       " FROM generate_series(0, 8) AS num) franja " +
+		       "WHERE (:idEspacioFisico IS NULL OR ef.idEspacioFisico = :idEspacioFisico) " +
+		       "AND (:salon IS NULL OR LOWER(ef.salon) LIKE LOWER(CONCAT('%', :salon, '%'))) " +
+		       "AND (:ubicacion IS NULL OR ef.ubicacion.idUbicacion IN :ubicacion) " +
+		       "AND NOT EXISTS (" +
+		       "    SELECT 1 " +
+		       "    FROM HorarioEspacioEntity he " +
+		       "    JOIN HorarioEntity h ON he.idHorarioEspacio.idHorario = h.idHorario " +
+		       "    WHERE he.idHorarioEspacio.idEspacioFisico = ef.idEspacioFisico " +
+		       "    AND h.dia = :dia " +
+		       "    AND franja.horaInicio < h.horaFin " +
+		       "    AND franja.horaFin > h.horaInicio" +
+		       ")")
+		Page<FranjaLibreOutDTO> filtrarFranjasLibres(
+		    @Param("idEspacioFisico") Long idEspacioFisico,
+		    @Param("dia") DiaSemanaEnum dia,
+		    @Param("salon") String salon,
+		    @Param("ubicacion") List<Long> ubicacion,
+		    Pageable pageable
+		);
+
+
+}

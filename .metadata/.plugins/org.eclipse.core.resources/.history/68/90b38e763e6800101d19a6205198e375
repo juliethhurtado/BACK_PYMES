@@ -1,0 +1,5 @@
+package com.tuempresa.herramientaevaluacion.dto;
+
+public class EmpresaRequestDTO {
+
+}

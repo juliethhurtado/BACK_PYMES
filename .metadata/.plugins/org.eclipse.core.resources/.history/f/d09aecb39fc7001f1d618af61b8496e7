@@ -1,0 +1,26 @@
+package co.edu.unicauca.sgph.reservatemporal.infrastructure.mapper;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+
+import co.edu.unicauca.sgph.reservatemporal.domain.model.ReservaTemporal;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.EstadoReservaEnum;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.ReservaTemporalEntity;
+
+
+@Mapper(componentModel = "spring") 
+public interface ReservaTemporalRestMapper {
+
+	@Mapping(target = "identificacion", source = "numeroIdentificacion")
+    @Mapping(target = "idEspacioFisico", source = "espacioFisico.idEspacioFisico")
+    @Mapping(target = "idUbicacion", source = "espacioFisico.ubicacion.idUbicacion", defaultValue = "0L")
+    @Mapping(target = "salon", source = "espacioFisico.salon")
+    @Mapping(target = "estado", source = "estado", qualifiedByName = "estadoToDescripcion")
+    ReservaTemporal toReservaTemporal(ReservaTemporalEntity entity);
+
+    @Named("estadoToDescripcion")
+    default String mapEstadoToDescripcion(EstadoReservaEnum estado) {
+        return estado != null ? estado.name() : null;
+    }
+}

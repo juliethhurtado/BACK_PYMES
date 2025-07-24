@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="Periodo"/>
+		<item key="wrap" value="false"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="periodo"/>
+			<item value="Asignatura asignatura = this.modelMapper.map(optionalAsignatura.get(), Asignatura.class);"/>
+			<item value="ChatGPT dijo:&#x0A;Gracias por compartir todas las imágenes y el contexto. Dado que estás enfrentando un StackOverflowError debido a referencias cíclicas (lo que parece estar ocurriendo entre Asignatura, Programa y sus entidades asociadas), y además estás usando tanto ModelMapper como MapStruct, lo más recomendable es evitar el uso mixto de mapeadores automáticos cuando hay ciclos. Aquí va un resumen con una solución clara:&#x0A;&#x0A;✅ Solución Sugerida&#x0A;Paso 1: Usa solo MapStruct para Asignatura y Programa&#x0A;&#x0A;Dado que ya tienes mapeadores definidos con MapStruct (AsignaturaRestMapper, ProgramaRestMapper), no uses ModelMapper para mapear estas entidades. Por ejemplo, en tu clase GestionarAsignaturaGatewayImplAdapter, reemplaza:&#x0A;&#x0A;java&#x0A;Copiar&#x0A;Editar&#x0A;"/>
+			<item value="mapearDocenteLaborPorDocen"/>
+			<item value="mapearDocenteLaborPorDocente"/>
+			<item value="espacioFisicoToEspacioFisicoEntity"/>
+			<item value="mapAgrupadorListToLight"/>
+			<item value="if (!((UsuarioPrincipal) authentication.getPrincipal()).getEstado().equals(EstadoUsuarioEnum.ACTIVO)) {"/>
+			<item value="asignaturasExistentes"/>
+			<item value="asignaturasExistentes "/>
+			<item value="getSingleResult"/>
+			<item value="ReservaTemporalOutDTO"/>
+			<item value="generarExcelBase64"/>
+			<item value="}"/>
+			<item value="HttpHea"/>
+		</list>
+		<list key="replacehistory">
+			<item value=""/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1611"/>
+		<item key="DIALOG_Y_ORIGIN" value="256"/>
+		<item key="DIALOG_WIDTH" value="414"/>
+		<item key="DIALOG_HEIGHT" value="454"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI"/>
+	</section>
+</section>

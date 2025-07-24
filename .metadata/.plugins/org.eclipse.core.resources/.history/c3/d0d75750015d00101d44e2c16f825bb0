@@ -1,0 +1,46 @@
+package co.edu.unicauca.sgph.espaciofisico.infrastructure.input.mapper;
+
+import co.edu.unicauca.sgph.espaciofisico.domain.model.Edificio;
+import co.edu.unicauca.sgph.espaciofisico.infrastructure.input.DTOResponse.EdificioOutDTO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-07-09T11:00:32-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class EdificioRestMapperImpl implements EdificioRestMapper {
+
+    @Override
+    public EdificioOutDTO toEdificioOutDTO(Edificio edificio) {
+        if ( edificio == null ) {
+            return null;
+        }
+
+        EdificioOutDTO edificioOutDTO = new EdificioOutDTO();
+
+        edificioOutDTO.setIdEdificio( edificio.getIdEdificio() );
+        edificioOutDTO.setNombre( edificio.getNombre() );
+        edificioOutDTO.setDescripcion( edificio.getDescripcion() );
+
+        return edificioOutDTO;
+    }
+
+    @Override
+    public List<EdificioOutDTO> toLstEdificioOutDTO(List<Edificio> lstEdificio) {
+        if ( lstEdificio == null ) {
+            return null;
+        }
+
+        List<EdificioOutDTO> list = new ArrayList<EdificioOutDTO>( lstEdificio.size() );
+        for ( Edificio edificio : lstEdificio ) {
+            list.add( toEdificioOutDTO( edificio ) );
+        }
+
+        return list;
+    }
+}

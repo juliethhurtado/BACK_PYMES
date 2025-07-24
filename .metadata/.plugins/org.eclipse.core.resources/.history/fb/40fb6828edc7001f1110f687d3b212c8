@@ -1,0 +1,47 @@
+package co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.mapper;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import co.edu.unicauca.sgph.reservatemporal.domain.model.ReservaTemporal;
+import co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.entity.ReservaTemporalEntity;
+
+@Configuration
+public class ReservaTemporalPersistenceMapper {
+	
+	@Bean
+    public ModelMapper modelMapper() {
+		ModelMapper modelMapper = new ModelMapper();
+
+	    modelMapper.getConfiguration()
+	               // Desactiva el mapeo automático por fields
+	               .setFieldMatchingEnabled(false)
+	               // Ignora conflictos de ambigüedad si encuentra más de un candidato
+	               .setAmbiguityIgnored(true)
+	               .setSkipNullEnabled(true);
+
+	    // Mapeos explícitos
+	    modelMapper.typeMap(ReservaTemporalEntity.class, ReservaTemporal.class)
+	        .addMappings(mapper -> {
+	            // Mapea numeroIdentificacion -> identificacion (dominio)
+	            mapper.map(ReservaTemporalEntity::getNumeroIdentificacion, 
+	                       ReservaTemporal::setIdentificacion);
+
+	            // Mapea tipoIdentificacion -> tipoIdentificacion (dominio)
+	            mapper.map(ReservaTemporalEntity::getTipoIdentificacion, 
+	                       ReservaTemporal::setTipoIdentificacion);
+
+	            // Mapea horaInicio como String (ejemplo)
+	            mapper.map(src -> src.getHoraInicio() != null ? src.getHoraInicio().toString() : null,
+	                       ReservaTemporal::setHoraInicio);
+
+	            // Mapea horaFin como String (ejemplo)
+	            mapper.map(src -> src.getHoraFin() != null ? src.getHoraFin().toString() : null,
+	                       ReservaTemporal::setHoraFin);
+	        });
+
+	    return modelMapper;
+    }
+}

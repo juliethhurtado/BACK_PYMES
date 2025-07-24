@@ -1,0 +1,5 @@
+package com.tuempresa.herramientaevaluacion.entity;
+
+public class Empresa {
+
+}

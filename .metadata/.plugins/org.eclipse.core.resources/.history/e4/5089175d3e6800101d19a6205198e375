@@ -1,0 +1,5 @@
+package com.tuempresa.herramientaevaluacion.repository;
+
+public interface ResultadoRepository {
+
+}
