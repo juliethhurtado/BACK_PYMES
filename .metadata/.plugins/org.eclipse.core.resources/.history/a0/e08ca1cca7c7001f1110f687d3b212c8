@@ -1,5 +1,0 @@
-package co.edu.unicauca.sgph.reservatemporal.infrastructure.output.persistence.mapper;
-
-public class ReservaTemporalPersistenceMapper {
-
-}
