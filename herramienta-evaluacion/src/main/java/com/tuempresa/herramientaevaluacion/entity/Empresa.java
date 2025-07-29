@@ -15,6 +15,56 @@ public class Empresa {
 	    private String cargo;
 	    private String correo;
 	    private LocalDate fechaRegistro;
+	    private String genero;
+	    private Integer edad;
+	    private String departamento;
+	    private String municipio;
+	    private String sectorEconomico; // opcional
+	    private int aniosExperiencia;
+	    public String getGenero() {
+			return genero;
+		}
+		public void setGenero(String genero) {
+			this.genero = genero;
+		}
+		public Integer getEdad() {
+			return edad;
+		}
+		public void setEdad(Integer edad) {
+			this.edad = edad;
+		}
+		public String getDepartamento() {
+			return departamento;
+		}
+		public void setDepartamento(String departamento) {
+			this.departamento = departamento;
+		}
+		public String getMunicipio() {
+			return municipio;
+		}
+		public void setMunicipio(String municipio) {
+			this.municipio = municipio;
+		}
+		public String getSectorEconomico() {
+			return sectorEconomico;
+		}
+		public void setSectorEconomico(String sectorEconomico) {
+			this.sectorEconomico = sectorEconomico;
+		}
+		public Integer getNumeroEmpleados() {
+			return numeroEmpleados;
+		}
+		public void setNumeroEmpleados(Integer numeroEmpleados) {
+			this.numeroEmpleados = numeroEmpleados;
+		}
+		public Boolean getAutorizacionUsoDatos() {
+			return autorizacionUsoDatos;
+		}
+		public void setAutorizacionUsoDatos(Boolean autorizacionUsoDatos) {
+			this.autorizacionUsoDatos = autorizacionUsoDatos;
+		}
+		private Integer numeroEmpleados;
+	    private Boolean autorizacionUsoDatos;
 
 	    // Getters y Setters
 
@@ -35,5 +85,12 @@ public class Empresa {
 
 	    public LocalDate getFechaRegistro() { return fechaRegistro; }
 	    public void setFechaRegistro(LocalDate fechaRegistro) { this.fechaRegistro = fechaRegistro; }
+
+		public int getAniosExperiencia() {
+			return aniosExperiencia;
+		}
+		public void setAniosExperiencia(int aniosExperiencia) {
+			this.aniosExperiencia = aniosExperiencia;
+		}
 
 }

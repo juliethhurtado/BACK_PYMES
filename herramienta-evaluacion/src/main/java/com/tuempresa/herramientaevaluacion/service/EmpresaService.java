@@ -36,6 +36,14 @@ public class EmpresaService {
         empresa.setCargo(dto.getCargo());
         empresa.setCorreo(dto.getCorreo());
         empresa.setFechaRegistro(LocalDate.now());
+        empresa.setGenero(dto.getGenero());
+        empresa.setEdad(dto.getEdad());
+        empresa.setDepartamento(dto.getDepartamento());
+        empresa.setMunicipio(dto.getMunicipio());
+        empresa.setSectorEconomico(dto.getSectorEconomico());
+        empresa.setNumeroEmpleados(dto.getNumeroEmpleados());
+        empresa.setAutorizacionUsoDatos(dto.getAutorizacionUsoDatos());
+       
 
         empresaRepository.save(empresa);
 

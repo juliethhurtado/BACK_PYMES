@@ -9,7 +9,7 @@ public class NivelUtils {
         if (respuestas == null || respuestas.isEmpty()) return 0;
 
         int suma = respuestas.stream().mapToInt(i -> i).sum();
-        return Math.round(suma / 12.0f);
+        return Math.round(suma / 22.0f);
     }
 
     // Devuelve el mensaje asociado a cada nivel
