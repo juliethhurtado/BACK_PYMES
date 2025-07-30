@@ -4,7 +4,7 @@ import java.util.List;
 
 public class EmpresaRequestDTO {
 
-	private String nombreEmpresa;
+    private String nombreEmpresa;
     private String responsable;
     private String cargo;
     private String correo;
@@ -15,6 +15,9 @@ public class EmpresaRequestDTO {
     private int numeroEmpleados;
     private int aniosExperiencia;
     private List<Integer> respuestas;
+    private String sectorEconomico;
+    private String municipio;
+    private Boolean autorizacionUsoDatos;
 
     // Getters y Setters
 
@@ -50,16 +53,14 @@ public class EmpresaRequestDTO {
 
     public List<Integer> getRespuestas() { return respuestas; }
     public void setRespuestas(List<Integer> respuestas) { this.respuestas = respuestas; }
-	public Boolean getAutorizacionUsoDatos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getSectorEconomico() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getMunicipio() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    public String getSectorEconomico() { return sectorEconomico; }
+    public void setSectorEconomico(String sectorEconomico) { this.sectorEconomico = sectorEconomico; }
+
+    public String getMunicipio() { return municipio; }
+    public void setMunicipio(String municipio) { this.municipio = municipio; }
+
+    public Boolean getAutorizacionUsoDatos() { return autorizacionUsoDatos; }
+    public void setAutorizacionUsoDatos(Boolean autorizacionUsoDatos) { this.autorizacionUsoDatos = autorizacionUsoDatos; }
 }
+
