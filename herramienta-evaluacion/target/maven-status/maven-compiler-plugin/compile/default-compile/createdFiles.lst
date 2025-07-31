@@ -2,9 +2,12 @@ com\tuempresa\herramientaevaluacion\service\EmpresaService.class
 com\tuempresa\herramientaevaluacion\repository\EmpresaRepository.class
 com\tuempresa\herramientaevaluacion\repository\RespuestaRepository.class
 com\tuempresa\herramientaevaluacion\controller\EmpresaController.class
+com\tuempresa\herramientaevaluacion\config\WebConfig.class
+com\tuempresa\herramientaevaluacion\service\CorreoService.class
 com\tuempresa\herramientaevaluacion\repository\ResultadoRepository.class
 com\tuempresa\herramientaevaluacion\dto\EmpresaRequestDTO.class
 com\tuempresa\herramientaevaluacion\util\NivelUtils.class
+com\tuempresa\herramientaevaluacion\config\WebConfig$1.class
 com\tuempresa\herramientaevaluacion\entity\Empresa.class
 com\tuempresa\herramientaevaluacion\entity\Resultado.class
 com\tuempresa\herramientaevaluacion\entity\Respuesta.class

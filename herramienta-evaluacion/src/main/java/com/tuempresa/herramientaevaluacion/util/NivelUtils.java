@@ -4,9 +4,11 @@ import java.util.List;
 
 public class NivelUtils {
 
-    // Calcula el nivel de madurez con base en las respuestas (de 1 a 5)
+    // Calcula el nivel de madurez con base en las 22 respuestas (valores entre 1 y 5)
     public static int calcularNivel(List<Integer> respuestas) {
-        if (respuestas == null || respuestas.isEmpty()) return 0;
+        if (respuestas == null || respuestas.size() != 22) {
+            throw new IllegalArgumentException("Se requieren exactamente 22 respuestas para calcular el nivel.");
+        }
 
         int suma = respuestas.stream().mapToInt(i -> i).sum();
         return Math.round(suma / 22.0f);
@@ -24,3 +26,4 @@ public class NivelUtils {
         };
     }
 }
+

@@ -19,4 +19,10 @@ public class EmpresaController {
         empresaService.registrarEmpresa(dto);
         return ResponseEntity.ok("Registro exitoso. Gracias por participar.");
     }
+
+    @PostMapping("/enviarResultados")
+    public ResponseEntity<String> enviarResultados(@RequestBody EmpresaRequestDTO dto) {
+        empresaService.registrarEmpresa(dto);  // o llama otro método si lo separas
+        return ResponseEntity.ok("Resultados enviados correctamente.");
+    }
 }

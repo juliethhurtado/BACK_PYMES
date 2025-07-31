@@ -27,9 +27,12 @@ public class EmpresaService {
     @Autowired
     private ResultadoRepository resultadoRepository;
 
+    @Autowired
+    private CorreoService correoService;
+
     @Transactional
     public void registrarEmpresa(EmpresaRequestDTO dto) {
-        // 1. Crear Empresa
+    	 // 1. Crear Empresa
         Empresa empresa = new Empresa();
         empresa.setNombreEmpresa(dto.getNombreEmpresa());
         empresa.setResponsable(dto.getResponsable());
@@ -43,7 +46,6 @@ public class EmpresaService {
         empresa.setSectorEconomico(dto.getSectorEconomico());
         empresa.setNumeroEmpleados(dto.getNumeroEmpleados());
         empresa.setAutorizacionUsoDatos(dto.getAutorizacionUsoDatos());
-       
 
         empresaRepository.save(empresa);
 
@@ -62,15 +64,20 @@ public class EmpresaService {
 
         // 3. Calcular nivel
         int promedio = NivelUtils.calcularNivel(dto.getRespuestas());
-        String mensaje = NivelUtils.obtenerMensajeNivel(promedio);
-
 
         // 4. Guardar resultado
         Resultado resultado = new Resultado();
         resultado.setEmpresa(empresa);
         resultado.setNivelMadurez(promedio);
-        resultado.setMensaje(mensaje);
+        resultado.setMensaje(""); // ya no se usa el mensaje aquí
         resultadoRepository.save(resultado);
+
+        // 5. Enviar correo con resultados
+        correoService.enviarCorreoResultado("andresfag@unicauca.edu.co", empresa.getNombreEmpresa(), promedio);
+
+        if (empresa.getCorreo() != null && !empresa.getCorreo().isEmpty()) {
+            correoService.enviarCorreoResultado(empresa.getCorreo(), empresa.getNombreEmpresa(), promedio);
+        }
     }
 
     private String obtenerMensajeNivel(int nivel) {
